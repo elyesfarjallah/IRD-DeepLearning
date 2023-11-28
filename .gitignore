@@ -1,0 +1,12 @@
+#exclude RETFOUND_MAE
+RETFOUND_MAE/
+1000images/
+ODIR-5k/
+RETFOUND_dataset/
+RFMID/
+RFMID2_0/
+IRD_datasets.xlsx
+MA_Thesis_on_Deep_Learning_for_IRD_Fundus_Imaging.pdf
+RIPS/
+*.onnx
+
