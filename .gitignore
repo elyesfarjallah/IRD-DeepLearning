@@ -13,4 +13,11 @@ RIPS/
 *.png
 *.jpg
 *.xlsx
-models/
+!model_evaluations/.gitkeep
+!models/.gitkeep
+!dataset_plots/.gitkeep
+!dataset_evaluations/.gitkeep
+!clustering_evaluations/.gitkeep
+!similarity_matrices/.gitkeep
+*.pth
+*.pt
