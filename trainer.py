@@ -131,6 +131,7 @@ def train(model : nn.Module, n_classes : int, train_loader: DataLoader, validati
     patience_counter = 0
     #training loop
     model.train()
+    wandb.watch(model, log='gradients', log_freq=100)
     for epoch in epoch_progress_bar:
         #reset calculators
         reset_calculators(calculators)
