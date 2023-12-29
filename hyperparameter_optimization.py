@@ -19,18 +19,22 @@ with open('wandb_config.json') as f:
     wandb_config = json.load(f)
 
 class Objective:
-    def __init__(self, model_to_optimize, model_name, n_classes, wandb_config_dict, dataset, train_sampler, validation_sampler, dataset_path : str, run_tags : list = [], n_epochs_validation : int = 1):
+    def __init__(self, model_to_optimize, model_name, n_classes, wandb_config_dict, dataset, n_epochs : int,
+                  train_sampler, validation_sampler, dataset_path : str,
+                    run_tags : list = [], n_epochs_validation : int = 1, prefered_device : str = 'cuda:0'):
         # Hold this implementation specific arguments as the fields of the class.
         self.model = model_to_optimize
         self.model_name = model_name
         self.n_classes = n_classes
         self.wandb_config_dict = wandb_config_dict
         self.dataset = dataset
+        self.n_epochs = n_epochs
         self.train_sampler = train_sampler
         self.validation_sampler = validation_sampler
         self.run_tags = run_tags
         self.dataset_path = dataset_path
         self.n_epochs_validation = n_epochs_validation
+        self.prefered_device = prefered_device
 
 
     def __call__(self, trial):
@@ -49,14 +53,16 @@ class Objective:
         trainings_start_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         best_weights_save_path = f'models/{self.model_name}/{trainings_start_time}_{self.model_name}_{run_id}'
         model_hisotory = train(model=self.model, train_loader=train_loader, validation_loader=validation_loader,
-                                n_classes=self.n_classes, epochs=3, lr=lr, batch_size=batch_size, prefered_device='cuda',
+                                n_classes=self.n_classes, epochs=self.n_epochs, lr=lr, batch_size=batch_size, prefered_device=self.prefered_device,
                                 early_stopping=True, patience=10, min_delta_percentage=0.05,
                                 wandb_api_key= api_key, wandb_project_name= project_name, wandb_run_id= run_id, wandb_run_name=run_name, wandb_tags= tags,
                                 best_weights_save_path= best_weights_save_path, dataset_path= self.dataset_path, n_epochs_validation=self.n_epochs_validation)
         return min(model_hisotory['validation']['loss'])
 
-def optimize_model(model_key : str, dataset_path : str,
-                    wandb_config: dict, alternate_image_transforms:bool,weight_train_sampler:bool, weight_validation_sampler:bool, n_epochs_validation : int, n_trials:int, study_save_path:str):
+def optimize_model(model_key : str, n_epochs: int,
+                   dataset_path : str, wandb_config: dict, alternate_image_transforms:bool,weight_train_sampler:bool, weight_validation_sampler:bool,
+                     n_epochs_validation : int, n_trials:int,
+                       study_save_path:str, prefered_device:str = 'cuda:0'):
     #load data
     #set random seed
     random.seed(42)
@@ -104,13 +110,8 @@ def optimize_model(model_key : str, dataset_path : str,
     model_to_optimize = models_torch.get_model(model_key, n_classes)
     model_name = model_key
 
-    #show test, validation and train data class counts
-    print(f'train data class counts: {np.unique(np.take(targets,train_idx), return_counts=True)}')
-    print(f'validation data class counts: {np.unique(np.take(targets,validation_idx), return_counts=True)}')
-    print(f'test data class counts: {np.unique(np.take(targets,test_idx), return_counts=True)}')
-
     objective = Objective(model_to_optimize=model_to_optimize, model_name=model_name, n_classes=n_classes,wandb_config_dict=wandb_config, 
-                             dataset=dataset, train_sampler=train_sampler, validation_sampler=validation_sampler,
+                             dataset=dataset, n_epochs=n_epochs, train_sampler=train_sampler, validation_sampler=validation_sampler,
                                run_tags=run_tags, dataset_path=dataset_path, n_epochs_validation=n_epochs_validation)
     study.optimize(objective,
                     n_trials=n_trials)
