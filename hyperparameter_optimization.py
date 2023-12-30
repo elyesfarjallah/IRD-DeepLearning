@@ -56,7 +56,7 @@ class Objective:
                                 n_classes=self.n_classes, epochs=self.n_epochs, lr=lr, batch_size=batch_size, prefered_device=self.prefered_device,
                                 early_stopping=True, patience=10, min_delta_percentage=0.05,
                                 wandb_api_key= api_key, wandb_project_name= project_name, wandb_run_id= run_id, wandb_run_name=run_name, wandb_tags= tags,
-                                best_weights_save_path= best_weights_save_path, dataset_path= self.dataset_path, n_epochs_validation=self.n_epochs_validation)
+                                best_weights_save_path= best_weights_save_path, dataset_path= self.dataset_path, n_epochs_validation=self.n_epochs_validation, model_name=self.model_name)
         return min(model_hisotory['validation']['loss'])
 
 def optimize_model(model_key : str, n_epochs: int,

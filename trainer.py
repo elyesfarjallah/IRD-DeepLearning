@@ -99,11 +99,11 @@ def train(model : nn.Module, n_classes : int, train_loader: DataLoader, validati
              wandb_api_key: str, wandb_project_name : str, wandb_run_name : str , wandb_tags : list , wandb_run_id : str = None,
               epochs : int = 50,
              n_epochs_validation : int = 5, prefered_device = None,
-               early_stopping : bool = False, patience : int = 10, min_delta_percentage : float = 0.0, previous_run_id : str = ''):
+               early_stopping : bool = False, patience : int = 10, min_delta_percentage : float = 0.0, previous_run_id : str = '', model_name : str = None):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if prefered_device is None else torch.device(prefered_device)
     
     model.to(device)
-    model_name = model.__class__.__name__
+    model_name = model.__class__.__name__ if model_name else model_name
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
