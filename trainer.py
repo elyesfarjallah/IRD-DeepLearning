@@ -118,7 +118,7 @@ def train(model : nn.Module, n_classes : int, train_loader: DataLoader, validati
     #generate run id
     run_id = generate_run_id() if wandb_run_id is None else wandb_run_id
     #login to wandb
-    wandb.login(key=wandb_api_key, relogin=True)
+    wandb.login(key=wandb_api_key)
     #init wandb run
     wandb.init(project=wandb_project_name, name=wandb_run_name, tags=wandb_tags, id=run_id, config=config)
     #init model history dict
