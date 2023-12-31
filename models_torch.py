@@ -35,7 +35,7 @@ model_dict = {
     'vit_b_32' : { 'model': models.vit_b_32,'weights' : models.ViT_B_32_Weights.DEFAULT, 'transforms' : standard_transform()},
     'vit_l_16' : { 'model': models.vit_l_16,'weights' : models.ViT_L_16_Weights.DEFAULT, 'transforms' : standard_transform()},
     'vit_l_32' : { 'model': models.vit_l_32,'weights' : models.ViT_L_32_Weights.DEFAULT, 'transforms' : standard_transform()},
-    'vit_h_14' : { 'model': models.vit_h_14,'weights' : models.ViT_H_14_Weights.DEFAULT, 'transforms' : standard_transform(width=518, height=518)},
+    'vit_h_14' : { 'model': models.vit_h_14,'weights' : models.ViT_H_14_Weights.DEFAULT, 'transforms' : standard_transform()},
 }
 
 #swap the last layer of every model with a new one
