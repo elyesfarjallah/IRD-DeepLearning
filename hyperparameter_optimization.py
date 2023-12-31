@@ -41,7 +41,7 @@ class Objective:
         # Calculate an objective value by using the extra arguments.
         #suggest a value for the hyperparameter
         lr = trial.suggest_float("lr", 1e-5, 1e-1, log=True)
-        batch_size = trial.suggest_categorical("    ", [4, 8, 16, 32, 64, 128, 256])
+        batch_size = trial.suggest_categorical("batch_size", [4, 8, 16, 32])
         train_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size, sampler=self.train_sampler)
         validation_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size, sampler=self.validation_sampler)
         api_key = self.wandb_config_dict['api_key']

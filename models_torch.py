@@ -2,6 +2,9 @@ import torchvision.models as models
 from image_transforms import standard_transform
 import torch.nn as nn
 
+#resnet18 resnet34 resnet101 resnet152 mobilenet_v3_large mobilenet_v3_small shufflenet_v2_x0_5 
+#shufflenet_v2_x1_0 shufflenet_v2_x1_5 shufflenet_v2_x2_0 mnasnet0_5 mnasnet0_75 mnasnet1_0 mnasnet1_3 resnext50_32x4d resnext101_32x8d
+#resnext101_64x4d wide_resnet50_2 wide_resnet101_2 swin_v2_t swin_v2_s swin_v2_b vit_b_16 vit_b_32 vit_l_16 vit_l_32 vit_h_14
 #a dict for the models and their weights
 model_dict = {
     "resnet18" :{ 'model': models.resnet18,'weights' : models.ResNet18_Weights.DEFAULT, 'transforms' : standard_transform()},

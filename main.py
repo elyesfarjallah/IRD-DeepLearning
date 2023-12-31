@@ -33,4 +33,9 @@ if __name__ == '__main__':
                                                   prefered_device=args.prefered_device)
 
 #execute the hyperparameter optimization
-#python main.py --model_keys resnet18 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 2 --wandb_config_path wandb_config.json --alternate_image_transforms --weight_train_sampler --weight_validation_sampler --n_trials 2 --study_save_path studies --n_epochs_validation 2
+#python main.py --model_keys shufflenet_v2_x1_0 shufflenet_v2_x1_5 shufflenet_v2_x2_0 mnasnet0_5 mnasnet0_75 mnasnet1_0 mnasnet1_3 resnext50_32x4d resnext101_32x8d resnext101_64x4d wide_resnet50_2 wide_resnet101_2 swin_v2_t swin_v2_s swin_v2_b vit_b_16 vit_b_32 vit_l_16 vit_l_32 vit_h_14 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 100 --wandb_config_path wandb_config.json --alternate_image_transforms --n_trials 100 --study_save_path studies --n_epochs_validation 1 --prefered_device cuda:0
+#python main.py --model_keys shufflenet_v2_x1_0 shufflenet_v2_x1_5 shufflenet_v2_x2_0 mnasnet0_5 mnasnet0_75 mnasnet1_0 mnasnet1_3 resnext50_32x4d resnext101_32x8d resnext101_64x4d wide_resnet50_2 wide_resnet101_2 swin_v2_t swin_v2_s swin_v2_b vit_b_16 vit_b_32 vit_l_16 vit_l_32 vit_h_14 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 100 --wandb_config_path wandb_config.json --n_trials 100 --study_save_path studies --n_epochs_validation 1 --prefered_device cuda:1
+        
+
+#python main.py --model_keys resnext101_32x8d resnext101_64x4d --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 5 --wandb_config_path wandb_config.json --alternate_image_transforms --n_trials 5 --study_save_path studies --n_epochs_validation 1 --prefered_device cuda:0
+
