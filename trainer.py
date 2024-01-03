@@ -104,8 +104,12 @@ def train(model : nn.Module, n_classes : int, train_loader: DataLoader, validati
              n_epochs_validation : int = 5, prefered_device = None,
                early_stopping : bool = False, patience : int = 10, min_delta_percentage : float = 0.0, previous_run_id : str = '', model_name : str = None):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if prefered_device is None else torch.device(prefered_device)
-    
+    logging.info(f"Device: {device.index}")
     model.to(device)
+    #print model device index
+    logging.info(f"prefered device: {prefered_device}")
+    logging.info(f"Model device index: {next(model.parameters()).device.index}")
+
     model_name = model.__class__.__name__ if model_name else model_name
 
     criterion = nn.CrossEntropyLoss()

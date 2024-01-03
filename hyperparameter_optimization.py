@@ -127,7 +127,9 @@ def optimize_model(model_key : str, n_epochs: int,
         os.makedirs(study_save_path)
     objective = Objective(model_to_optimize=model_to_optimize, model_name=model_name, n_classes=n_classes,wandb_config_dict=wandb_config, 
                              dataset=dataset, n_epochs=n_epochs, train_sampler=train_sampler, validation_sampler=validation_sampler,
-                               run_tags=run_tags, dataset_path=dataset_path, n_epochs_validation=n_epochs_validation , batch_size_options=batch_size_options)
+                               run_tags=run_tags,
+                                 dataset_path=dataset_path, n_epochs_validation=n_epochs_validation , batch_size_options=batch_size_options, 
+                                   prefered_device=prefered_device)
     callback_save_study = Save_Study_Callback(study_save_path)
     study.optimize(objective,
                     n_trials=n_trials, callbacks=[callback_save_study])
