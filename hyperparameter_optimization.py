@@ -22,7 +22,8 @@ with open('wandb_config.json') as f:
 class Objective:
     def __init__(self, model_to_optimize, model_name, n_classes, wandb_config_dict, dataset, n_epochs : int,
                   train_sampler, validation_sampler, dataset_path : str,
-                    run_tags : list = [], n_epochs_validation : int = 1, prefered_device : str = 'cuda:0'):
+                    run_tags : list = [], n_epochs_validation : int = 1, prefered_device : str = 'cuda:0',
+                      batch_size_options : list = [4, 8, 16, 32]):
         # Hold this implementation specific arguments as the fields of the class.
         self.model = model_to_optimize
         self.model_name = model_name
@@ -36,13 +37,14 @@ class Objective:
         self.dataset_path = dataset_path
         self.n_epochs_validation = n_epochs_validation
         self.prefered_device = prefered_device
+        self.batch_size_options = batch_size_options
 
 
     def __call__(self, trial):
         # Calculate an objective value by using the extra arguments.
         #suggest a value for the hyperparameter
         lr = trial.suggest_float("lr", 1e-5, 1e-1, log=True)
-        batch_size = trial.suggest_categorical("batch_size", [4, 8, 16, 32])
+        batch_size = trial.suggest_categorical("batch_size", self.batch_size_options)
         train_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size, sampler=self.train_sampler)
         validation_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size, sampler=self.validation_sampler)
         api_key = self.wandb_config_dict['api_key']

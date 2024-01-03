@@ -18,6 +18,8 @@ if __name__ == '__main__':
     parser.add_argument('--n_epochs_validation', type=int, help='number of epochs after which the validation is executed')
     #optional arguments
     parser.add_argument('--prefered_device', type=str, default='cuda:0', help='prefered device for training')
+    #batch_size_options = [4, 8, 16, 32]
+    parser.add_argument('--batch_size_options', nargs='+', type=int, default=[4, 8, 16, 32], help='batch size options for the hyperparameter optimization')
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO)
     #read the config file
@@ -29,7 +31,7 @@ if __name__ == '__main__':
                                                 weight_train_sampler=args.weight_train_sampler, weight_validation_sampler=args.weight_validation_sampler,
                                                 n_trials=args.n_trials,
                                                 n_epochs_validation= args.n_epochs_validation, n_epochs=args.n_epochs,
-                                                  prefered_device=args.prefered_device)
+                                                  prefered_device=args.prefered_device, batch_size_options=args.batch_size_options)
 
 #execute the hyperparameter optimization
 #python main.py --model_keys shufflenet_v2_x1_0 shufflenet_v2_x1_5 shufflenet_v2_x2_0 mnasnet0_5 mnasnet0_75 mnasnet1_0 mnasnet1_3 resnext50_32x4d resnext101_32x8d resnext101_64x4d wide_resnet50_2 wide_resnet101_2 swin_v2_t swin_v2_s swin_v2_b vit_b_16 vit_b_32 vit_l_16 vit_l_32 vit_h_14 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 100 --wandb_config_path wandb_config.json --alternate_image_transforms --n_trials 100 --study_save_path studies --n_epochs_validation 1 --prefered_device cuda:0
