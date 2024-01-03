@@ -21,10 +21,13 @@ import logging
 import os
 
 
-def generate_score_calculator_dict(n_classes : int):
-    return {'accuracy': MulticlassAccuracy(num_classes = n_classes),
-             'precision_micro': MulticlassPrecision(num_classes = n_classes),'recall_micro': MulticlassRecall(num_classes = n_classes), 'f1_micro': MulticlassF1Score(num_classes = n_classes),
-               'precision_macro': MulticlassPrecision(num_classes = n_classes, average = 'macro'), 'recall_macro': MulticlassRecall(num_classes = n_classes, average = 'macro'), 'f1_macro': MulticlassF1Score(num_classes = n_classes, average = 'macro')}
+def generate_score_calculator_dict(n_classes : int, device : torch.device = torch.device('cpu')):
+    return {'accuracy': MulticlassAccuracy(num_classes = n_classes, device=device),
+             'precision_micro': MulticlassPrecision(num_classes = n_classes, device=device),'recall_micro': MulticlassRecall(num_classes = n_classes, device=device),
+               'f1_micro': MulticlassF1Score(num_classes = n_classes, device=device),
+               'precision_macro': MulticlassPrecision(num_classes = n_classes, average = 'macro', device=device),
+                 'recall_macro': MulticlassRecall(num_classes = n_classes, average = 'macro', device=device),
+                   'f1_macro': MulticlassF1Score(num_classes = n_classes, average = 'macro', device=device)}
 
 class EmptyDataset(Dataset):
     def __init__(self):
@@ -108,7 +111,7 @@ def train(model : nn.Module, n_classes : int, train_loader: DataLoader, validati
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    calculators = generate_score_calculator_dict(n_classes =  n_classes)
+    calculators = generate_score_calculator_dict(n_classes =  n_classes, device=device)
     
 
     config = generate_config(model_name=model_name, n_parameters=count_parameters(model), n_learnable_parameters=count_learnable_parameters(model),
