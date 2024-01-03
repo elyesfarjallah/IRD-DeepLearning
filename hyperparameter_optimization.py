@@ -74,7 +74,8 @@ class Save_Study_Callback:
 
 def optimize_model(model_key : str, n_epochs: int,
                    dataset_path : str, wandb_config: dict, alternate_image_transforms:bool,weight_train_sampler:bool, weight_validation_sampler:bool,
-                     n_epochs_validation : int, n_trials:int, prefered_device:str = 'cuda:0'):
+                     n_epochs_validation : int, n_trials:int, prefered_device:str = 'cuda:0',
+                       batch_size_options : list = [4, 8, 16, 32]):
     #load data
     #set random seed
     random.seed(42)
@@ -126,7 +127,7 @@ def optimize_model(model_key : str, n_epochs: int,
         os.makedirs(study_save_path)
     objective = Objective(model_to_optimize=model_to_optimize, model_name=model_name, n_classes=n_classes,wandb_config_dict=wandb_config, 
                              dataset=dataset, n_epochs=n_epochs, train_sampler=train_sampler, validation_sampler=validation_sampler,
-                               run_tags=run_tags, dataset_path=dataset_path, n_epochs_validation=n_epochs_validation)
+                               run_tags=run_tags, dataset_path=dataset_path, n_epochs_validation=n_epochs_validation , batch_size_options=batch_size_options)
     callback_save_study = Save_Study_Callback(study_save_path)
     study.optimize(objective,
                     n_trials=n_trials, callbacks=[callback_save_study])
