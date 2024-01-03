@@ -15,7 +15,6 @@ if __name__ == '__main__':
     parser.add_argument('--weight_train_sampler', action='store_true', help='use weighted random sampler for training data')
     parser.add_argument('--weight_validation_sampler', action='store_true', help='use weighted random sampler for validation data')
     parser.add_argument('--n_trials', type=int, help='number of trials for the hyperparameter optimization')
-    parser.add_argument('--study_save_path', type=str, help='path to save the study')
     parser.add_argument('--n_epochs_validation', type=int, help='number of epochs after which the validation is executed')
     #optional arguments
     parser.add_argument('--prefered_device', type=str, default='cuda:0', help='prefered device for training')
@@ -28,8 +27,8 @@ if __name__ == '__main__':
         hyperparameter_optimization.optimize_model(model_key=model_key, dataset_path=args.dataset_path,
                                                 wandb_config=wandb_config, alternate_image_transforms=args.alternate_image_transforms,
                                                 weight_train_sampler=args.weight_train_sampler, weight_validation_sampler=args.weight_validation_sampler,
-                                                n_trials=args.n_trials, study_save_path=args.study_save_path,
-                                                  n_epochs_validation= args.n_epochs_validation, n_epochs=args.n_epochs,
+                                                n_trials=args.n_trials,
+                                                n_epochs_validation= args.n_epochs_validation, n_epochs=args.n_epochs,
                                                   prefered_device=args.prefered_device)
 
 #execute the hyperparameter optimization

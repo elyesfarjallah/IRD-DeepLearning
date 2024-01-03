@@ -13,6 +13,7 @@ from trainer import train
 import joblib
 import random
 from torchvision import transforms
+import os
 
 #read the config file
 with open('wandb_config.json') as f:
@@ -52,17 +53,26 @@ class Objective:
         run_name = f'{self.model_name}_{run_id}'
         trainings_start_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         best_weights_save_path = f'models/{self.model_name}/{trainings_start_time}_{self.model_name}_{run_id}'
+        #if path does not exist create it
+        if not os.path.exists(best_weights_save_path):
+            os.makedirs(best_weights_save_path)
         model_hisotory = train(model=self.model, train_loader=train_loader, validation_loader=validation_loader,
                                 n_classes=self.n_classes, epochs=self.n_epochs, lr=lr, batch_size=batch_size, prefered_device=self.prefered_device,
                                 early_stopping=True, patience=10, min_delta_percentage=0.05,
                                 wandb_api_key= api_key, wandb_project_name= project_name, wandb_run_id= run_id, wandb_run_name=run_name, wandb_tags= tags,
                                 best_weights_save_path= best_weights_save_path, dataset_path= self.dataset_path, n_epochs_validation=self.n_epochs_validation, model_name=self.model_name)
         return min(model_hisotory['validation']['loss'])
+class Save_Study_Callback:
+    def __init__(self, study_save_path):
+        self.study_save_path = study_save_path
+
+    def __call__(self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial):
+        joblib.dump(study, f"{self.study_save_path}/{study.study_name}.pkl")
+
 
 def optimize_model(model_key : str, n_epochs: int,
                    dataset_path : str, wandb_config: dict, alternate_image_transforms:bool,weight_train_sampler:bool, weight_validation_sampler:bool,
-                     n_epochs_validation : int, n_trials:int,
-                       study_save_path:str, prefered_device:str = 'cuda:0'):
+                     n_epochs_validation : int, n_trials:int, prefered_device:str = 'cuda:0'):
     #load data
     #set random seed
     random.seed(42)
@@ -109,13 +119,15 @@ def optimize_model(model_key : str, n_epochs: int,
     study = optuna.create_study(direction='minimize', study_name=study_name)
     model_to_optimize = models_torch.get_model(model_key, n_classes)
     model_name = model_key
-
+    study_save_path = f'models/{model_key}/studies/'
+    if not os.path.exists(study_save_path):
+        os.makedirs(study_save_path)
     objective = Objective(model_to_optimize=model_to_optimize, model_name=model_name, n_classes=n_classes,wandb_config_dict=wandb_config, 
                              dataset=dataset, n_epochs=n_epochs, train_sampler=train_sampler, validation_sampler=validation_sampler,
                                run_tags=run_tags, dataset_path=dataset_path, n_epochs_validation=n_epochs_validation)
+    callback_save_study = Save_Study_Callback(study_save_path)
     study.optimize(objective,
-                    n_trials=n_trials)
-    joblib.dump(study, f"{study_save_path}/{study_name}.pkl")
+                    n_trials=n_trials, callbacks=[callback_save_study])
 
 
 def test_optimize_model():
