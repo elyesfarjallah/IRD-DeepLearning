@@ -132,7 +132,7 @@ def optimize_model(model_key : str, n_epochs: int,
                                    prefered_device=prefered_device)
     callback_save_study = Save_Study_Callback(study_save_path)
     study.optimize(objective,
-                    n_trials=n_trials, callbacks=[callback_save_study])
+                    n_trials=n_trials, callbacks=[callback_save_study], n_jobs=1, gc_after_trial=True, catch=(Exception))
 
 
 def test_optimize_model():
