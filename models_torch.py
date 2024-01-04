@@ -62,4 +62,3 @@ def test_get_model():
     for model_name in model_dict.keys():
         model = get_model(model_name, 10, True)
         print(model_name, model)
-test_get_model()
