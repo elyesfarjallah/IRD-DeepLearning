@@ -39,25 +39,26 @@ model_dict = {
 }
 
 #swap the last layer of every model with a new one
-def get_model(model_name, num_classes):
+def get_model(model_name: str, num_classes : int, pretrained : bool = False):
+    if pretrained:
+        weights = model_dict[model_name]['weights']
+        model = model_dict[model_name]['model'](weights=weights)
+    else:
+        model = model_dict[model_name]['model'](pretrained=False)
     if 'resnet' in model_name or 'shufflenet' in model_name or 'resnext' in model_name or 'wide_resnet' in model_name:
-        model = model_dict[model_name]['model']()
         model.fc = nn.Linear(model.fc.in_features, num_classes)
     elif 'mobilenet' in model_name or 'mnasnet' in model_name:
-        model = model_dict[model_name]['model']()
         model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, 10)
     elif 'swin' in model_name:
-        model = model_dict[model_name]['model']()
         model.head = nn.Linear(model.head.in_features, num_classes)
     elif 'vit' in model_name:
-        model = model_dict[model_name]['model']()
         model.heads.head = nn.Linear(model.heads.head.in_features, num_classes)
     return model
+
+def get_available_models():
+    return model_dict.keys()
 
 def test_get_model():
     for model_name in model_dict.keys():
         model = get_model(model_name, 10)
         print(model_name, model)
-
-def get_available_models():
-    return model_dict.keys()
