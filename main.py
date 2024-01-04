@@ -12,6 +12,7 @@ if __name__ == '__main__':
     parser.add_argument('--n_epochs', type=int, help='number of epochs to train the model')
     parser.add_argument('--wandb_config_path', type=str, help='path to the wandb config file')
     parser.add_argument('--alternate_image_transforms', action='store_true', help='use alternate image transforms')
+    parser.add_argument('--pretrained', action='store_true', help='use pretrained weights')
     parser.add_argument('--weight_train_sampler', action='store_true', help='use weighted random sampler for training data')
     parser.add_argument('--weight_validation_sampler', action='store_true', help='use weighted random sampler for validation data')
     parser.add_argument('--n_trials', type=int, help='number of trials for the hyperparameter optimization')
@@ -31,7 +32,8 @@ if __name__ == '__main__':
                                                 weight_train_sampler=args.weight_train_sampler, weight_validation_sampler=args.weight_validation_sampler,
                                                 n_trials=args.n_trials,
                                                 n_epochs_validation= args.n_epochs_validation, n_epochs=args.n_epochs,
-                                                  prefered_device=args.prefered_device, batch_size_options=args.batch_size_options)
+                                                  prefered_device=args.prefered_device, batch_size_options=args.batch_size_options,
+                                                    pretrained=args.pretrained)
 
 #execute the hyperparameter optimization
 #python main.py --model_keys shufflenet_v2_x1_0 shufflenet_v2_x1_5 shufflenet_v2_x2_0 mnasnet0_5 mnasnet0_75 mnasnet1_0 mnasnet1_3 resnext50_32x4d resnext101_32x8d resnext101_64x4d wide_resnet50_2 wide_resnet101_2 swin_v2_t swin_v2_s swin_v2_b vit_b_16 vit_b_32 vit_l_16 vit_l_32 vit_h_14 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 100 --wandb_config_path wandb_config.json --alternate_image_transforms --n_trials 100 --study_save_path studies --n_epochs_validation 1 --prefered_device cuda:0

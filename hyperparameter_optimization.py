@@ -75,7 +75,7 @@ class Save_Study_Callback:
 def optimize_model(model_key : str, n_epochs: int,
                    dataset_path : str, wandb_config: dict, alternate_image_transforms:bool,weight_train_sampler:bool, weight_validation_sampler:bool,
                      n_epochs_validation : int, n_trials:int, prefered_device:str = 'cuda:0',
-                       batch_size_options : list = [4, 8, 16, 32]):
+                       batch_size_options : list = [4, 8, 16, 32], pretrained : bool = False):
     #load data
     #set random seed
     random.seed(42)
@@ -120,7 +120,9 @@ def optimize_model(model_key : str, n_epochs: int,
     start_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     study_name = f'{start_time}_study_{str(uuid4())}'
     study = optuna.create_study(direction='minimize', study_name=study_name)
-    model_to_optimize = models_torch.get_model(model_key, n_classes)
+    model_to_optimize = models_torch.get_model(model_key, n_classes, pretrained=pretrained)
+    if pretrained:
+        run_tags.append('pretrained')
     model_name = model_key
     study_save_path = f'models/{model_key}/studies/'
     if not os.path.exists(study_save_path):
@@ -132,7 +134,7 @@ def optimize_model(model_key : str, n_epochs: int,
                                    prefered_device=prefered_device)
     callback_save_study = Save_Study_Callback(study_save_path)
     study.optimize(objective,
-                    n_trials=n_trials, callbacks=[callback_save_study], n_jobs=1, gc_after_trial=True, catch=(Exception))
+                    n_trials=n_trials, callbacks=[callback_save_study], n_jobs=1)
 
 
 def test_optimize_model():
