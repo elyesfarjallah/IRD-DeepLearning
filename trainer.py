@@ -106,7 +106,7 @@ def train(model : nn.Module, n_classes : int, train_loader: DataLoader, validati
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") if prefered_device is None else torch.device(prefered_device)
     logging.info(f"Device: {device.index}")
     model.to(device)
-    #print model device index
+    #log model device index
     logging.info(f"prefered device: {prefered_device}")
     logging.info(f"Model device index: {next(model.parameters()).device.index}")
 
