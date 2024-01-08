@@ -23,7 +23,7 @@ class Objective:
     def __init__(self, model_to_optimize, model_name, n_classes, wandb_config_dict, dataset, n_epochs : int,
                   train_sampler, validation_sampler, dataset_path : str,
                     run_tags : list = [], n_epochs_validation : int = 1, prefered_device : str = 'cuda:0',
-                      batch_size_options : list = [4, 8, 16, 32]):
+                      batch_size_options : list = [4, 8, 16, 32], lr_min : float = 1e-5, lr_max : float = 1e-1):
         # Hold this implementation specific arguments as the fields of the class.
         self.model = model_to_optimize
         self.model_name = model_name
@@ -38,12 +38,14 @@ class Objective:
         self.n_epochs_validation = n_epochs_validation
         self.prefered_device = prefered_device
         self.batch_size_options = batch_size_options
+        self.lr_min = lr_min
+        self.lr_max = lr_max
 
 
     def __call__(self, trial):
         # Calculate an objective value by using the extra arguments.
         #suggest a value for the hyperparameter
-        lr = trial.suggest_float("lr", 1e-5, 1e-1, log=True)
+        lr = trial.suggest_float("lr", self.lr_min, self.lr_max, log=True)
         batch_size = trial.suggest_categorical("batch_size", self.batch_size_options)
         train_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size, sampler=self.train_sampler)
         validation_loader = torch.utils.data.DataLoader(self.dataset, batch_size=batch_size, sampler=self.validation_sampler)
@@ -75,7 +77,7 @@ class Save_Study_Callback:
 def optimize_model(model_key : str, n_epochs: int,
                    dataset_path : str, wandb_config: dict, alternate_image_transforms:bool,weight_train_sampler:bool, weight_validation_sampler:bool,
                      n_epochs_validation : int, n_trials:int, prefered_device:str = 'cuda:0',
-                       batch_size_options : list = [4, 8, 16, 32], pretrained : bool = False):
+                       batch_size_options : list = [4, 8, 16, 32], lr_min : float = 1e-5, lr_max : float = 1e-1, pretrained : bool = False):
     #load data
     #set random seed
     random.seed(42)
@@ -131,7 +133,7 @@ def optimize_model(model_key : str, n_epochs: int,
                              dataset=dataset, n_epochs=n_epochs, train_sampler=train_sampler, validation_sampler=validation_sampler,
                                run_tags=run_tags,
                                  dataset_path=dataset_path, n_epochs_validation=n_epochs_validation , batch_size_options=batch_size_options, 
-                                   prefered_device=prefered_device)
+                                   prefered_device=prefered_device, lr_min=lr_min, lr_max=lr_max)
     callback_save_study = Save_Study_Callback(study_save_path)
     study.optimize(objective,
                     n_trials=n_trials, callbacks=[callback_save_study], n_jobs=1)
