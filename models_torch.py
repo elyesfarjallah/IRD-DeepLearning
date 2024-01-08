@@ -1,6 +1,7 @@
 import torchvision.models as models
 from image_transforms import standard_transform
 import torch.nn as nn
+from retfound import retfound
 
 #resnet18 resnet34 resnet101 resnet152 mobilenet_v3_large mobilenet_v3_small shufflenet_v2_x0_5 
 #shufflenet_v2_x1_0 shufflenet_v2_x1_5 shufflenet_v2_x2_0 mnasnet0_5 mnasnet0_75 mnasnet1_0 mnasnet1_3 resnext50_32x4d resnext101_32x8d
@@ -36,8 +37,8 @@ model_dict = {
     'vit_l_16' : { 'model': models.vit_l_16,'weights' : models.ViT_L_16_Weights.DEFAULT, 'transforms' : standard_transform()},
     'vit_l_32' : { 'model': models.vit_l_32,'weights' : models.ViT_L_32_Weights.DEFAULT, 'transforms' : standard_transform()},
     'vit_h_14' : { 'model': models.vit_h_14,'weights' : models.ViT_H_14_Weights.IMAGENET1K_SWAG_LINEAR_V1, 'transforms' : standard_transform()},
+    'retfound' : { 'model': retfound, 'weights' : 'RETFound_MAE/RETFound_cfp_weights.pth', 'transforms' : standard_transform()},
 }
-
 #swap the last layer of every model with a new one
 def get_model(model_name: str, num_classes : int, pretrained : bool = False):
     if pretrained:
@@ -53,6 +54,8 @@ def get_model(model_name: str, num_classes : int, pretrained : bool = False):
         model.head = nn.Linear(model.head.in_features, num_classes)
     elif 'vit' in model_name:
         model.heads.head = nn.Linear(model.heads.head.in_features, num_classes)
+    elif 'retfound' in model_name:
+        model.head = nn.Linear(model.head.in_features, num_classes)
     return model
 
 def get_available_models():
