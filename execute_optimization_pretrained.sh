@@ -6,9 +6,9 @@ conda activate ird_deep_learning
 cd ~/IRD-DeepLearning
 echo 'Start optimization'
 rm vit_h_14.out vit_l_32.out vit_b_32.out resnext.out
-nohup python main.py --model_keys vit_h_14 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 25 --wandb_config_path wandb_config.json --n_trials 25 --n_epochs_validation 1 --prefered_device cuda:0 --batch_size_options 2 4 8 16 32 64 --lr_min 1e-8 --lr_max 1e-4  --pretrained >vit_h_14.out &
-nohup python main.py --model_keys vit_l_32 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 25 --wandb_config_path wandb_config.json --n_trials 25 --n_epochs_validation 1 --prefered_device cuda:1 --batch_size_options 2 4 8 16 32 64 --lr_min 1e-8 --lr_max 1e-4 --pretrained >vit_l_32.out &
-nohup python main.py --model_keys vit_b_32 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 25 --wandb_config_path wandb_config.json --n_trials 25 --n_epochs_validation 1 --prefered_device cuda:2 --batch_size_options 2 4 8 16 32 64 --lr_min 1e-8 --lr_max 1e-4 --pretrained >vit_b_32.out &
-nohup python main.py --model_keys retfound --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 25 --wandb_config_path wandb_config.json --n_trials 25 --n_epochs_validation 1 --prefered_device cuda:3 --batch_size_options 2 4 8 16 32 64 --pretrained >retfound.out &
+nohup python main.py --model_keys vit_h_14 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 20 --wandb_config_path wandb_config.json --n_trials 10 --n_epochs_validation 1 --prefered_device cuda:0 --batch_size_options 2 4 8 16 32 64 --lr_min 1e-8 --lr_max 1e-4  --pretrained >vit_h_14.out &
+nohup python main.py --model_keys vit_l_32 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 20 --wandb_config_path wandb_config.json --n_trials 10 --n_epochs_validation 1 --prefered_device cuda:1 --batch_size_options 2 4 8 16 32 64 --lr_min 1e-8 --lr_max 1e-4 --pretrained >vit_l_32.out &
+nohup python main.py --model_keys vit_b_32 --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 20 --wandb_config_path wandb_config.json --n_trials 10 --n_epochs_validation 1 --prefered_device cuda:2 --batch_size_options 2 4 8 16 32 64 --lr_min 1e-8 --lr_max 1e-4 --pretrained >vit_b_32.out &
+nohup python main.py --model_keys resnext50_32x4d --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 20 --wandb_config_path wandb_config.json --n_trials 50 --n_epochs_validation 1 --prefered_device cuda:3 --batch_size_options 2 4 8 16 32 64 128 --lr_min 1e-8 --lr_max 1e-3 --pretrained >resnext.out &
 wait
 echo 'Optimization done'
