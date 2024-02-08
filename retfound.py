@@ -5,7 +5,7 @@ from RETFound_MAE.util.pos_embed import interpolate_pos_embed
 from timm.models.layers import trunc_normal_
 
 # call the model
-def retfound(pretrained: bool = True, weights : str = './RETFound_MAE/RETFound_cfp_weights.pth'):
+def retfound(n_classes : int, weights: str = 'RETFound_MAE/RETFound_cfp_weights.pth'):
     model = models_vit.__dict__['vit_large_patch16'](
         num_classes=2,
         drop_path_rate=0.2,
@@ -29,5 +29,6 @@ def retfound(pretrained: bool = True, weights : str = './RETFound_MAE/RETFound_c
     assert set(msg.missing_keys) == {'head.weight', 'head.bias', 'fc_norm.weight', 'fc_norm.bias'}
 
     # manually initialize fc layer
+    model.head = torch.nn.Linear(in_features=model.head.in_features, out_features=n_classes, bias=True)
     trunc_normal_(model.head.weight, std=2e-5)
     return model
