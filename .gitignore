@@ -7,6 +7,7 @@ RFMID2_0/
 IRD_datasets.xlsx
 MA_Thesis_on_Deep_Learning_for_IRD_Fundus_Imaging.pdf
 RIPS/
+_pycache_/
 try.py
 *.onnx
 *.csv
@@ -19,5 +20,6 @@ try.py
 *.pt
 *.pkl
 *.json
+*.pyc
 wandb/
 wandb_config.json

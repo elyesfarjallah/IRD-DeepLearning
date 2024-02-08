@@ -1,0 +1,3 @@
+[submodule "ai_backend"]
+	path = ai_backend
+	url = https://github.com/elyesfarjallah/ai_backend.git
