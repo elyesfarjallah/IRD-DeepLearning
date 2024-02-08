@@ -6,10 +6,9 @@ from uuid import uuid4
 from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader, Dataset
 from sklearn.model_selection import train_test_split
-from image_transforms import standard_transform
-import models_torch
+import input_mapping.models_torch as models_torch
 import datetime
-from trainer import train
+from ai_backend.model_executors.trainer import train
 import joblib
 import random
 from torchvision import transforms

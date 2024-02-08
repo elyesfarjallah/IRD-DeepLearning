@@ -1,10 +1,10 @@
-import hyperparameter_optimization
-import models_torch
+import hyperparameter_optimization as hyperparameter_optimization
+import input_mapping.models_torch as models_torch
 import argparse
 import logging
 import json
 import numpy as np
-from trainer import train
+from ai_backend.model_executors.trainer import train
 from uuid import uuid4
 from uuid import uuid4
 import random
@@ -81,6 +81,9 @@ if __name__ == '__main__':
     lr = args.lr
     batch_size = args.batch_size
     train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=train_sampler)
+    for batch in train_loader:
+        print(batch[0].shape)
+        break
     validation_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, sampler=validation_sampler)
     with open(args.wandb_config_path) as f:
         wandb_config_dict = json.load(f)
@@ -94,12 +97,12 @@ if __name__ == '__main__':
     model_name = args.model_key
     run_name = f'{model_name}_{run_id}'
     trainings_start_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    best_weights_save_path = f'models/{args.model_name}/{trainings_start_time}_{args.model_name}_{run_id}'
+    best_weights_save_path = f'models/{model_name}/{trainings_start_time}_{model_name}_{run_id}'
     #if path does not exist create it
     if not os.path.exists(best_weights_save_path):
         os.makedirs(best_weights_save_path)
     train(model=model, train_loader=train_loader, validation_loader=validation_loader,
-                                n_classes=args.n_classes, epochs=args.n_epochs, lr=lr, batch_size=args.batch_size, prefered_device=args.prefered_device,
+                                n_classes=n_classes, epochs=args.n_epochs, lr=lr, batch_size=args.batch_size, prefered_device=args.prefered_device,
                                 early_stopping=True, patience=10, min_delta_percentage=0.05,
                                 wandb_api_key= api_key, wandb_project_name= project_name, wandb_run_id= run_id, wandb_run_name=run_name, wandb_tags= run_tags,
                                 best_weights_save_path= best_weights_save_path, dataset_path= args.dataset_path,
@@ -107,5 +110,5 @@ if __name__ == '__main__':
     
 
 #execute the hyperparameter optimization
-#python train_model.py --model_key retfound --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 5 --wandb_config_path wandb_config.json --alternate_image_transforms --n_epochs_validation 1 --prefered_device cpu --batch_size 4 --lr 0.001
+#python train_model.py --model_key retfound --dataset_path datasets/2023-12-28_18-12-43 --n_epochs 5 --wandb_config_path wandb_config.json --alternate_image_transforms --n_epochs_validation 1 --prefered_device cpu --batch_size 4 --lr 1e-6
 
