@@ -11,6 +11,7 @@ import optuna
 import joblib
 import argparse
 from datetime import datetime
+import os
 
 
 #parse the arguments
@@ -99,6 +100,9 @@ class Save_Study_Callback:
         self.study_save_path = study_save_path
 
     def __call__(self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial):
+        #check if the study save path exists
+        if not os.path.exists(self.study_save_path):
+            os.makedirs(self.study_save_path)
         joblib.dump(study, f"{self.study_save_path}/{study.study_name}.pkl")
 
 #create a study
