@@ -115,7 +115,7 @@ study_path = f'models/{model_key}/studies'
 
 study = optuna.create_study(direction='minimize', study_name=study_name)
 #load the study
-study_save_path = 'models/resnet18/studies/'
+study_save_path = f'models/{args.model_key}/studies/'
 #study = joblib.load('models/resnet18/studies/ce90cdd0-374e-47af-a13d-e97063661b14.pkl')
 save_callback = Save_Study_Callback(study_save_path)
 study.optimize(objective, n_trials=100, show_progress_bar=True, callbacks=[save_callback])
