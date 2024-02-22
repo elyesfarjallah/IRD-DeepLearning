@@ -82,11 +82,11 @@ def  objective(trial : optuna.Trial):
     
     
     trainer.train(model=model, criterion=criterion, optimizer=optimizer, train_loader=train_loader, validation_loader=validation_loader,
-                   n_epochs_validation=1, epochs=30, prefered_device=args.device, early_stopping=True, patience=10, min_delta_percentage=0.1)
+                   n_epochs_validation=1, epochs=30, device=args.device, early_stopping=True, patience=10, min_delta_percentage=0.1)
     #load the best model
     best_state_dict = torch.load(model_save_path)
     model.load_state_dict(best_state_dict)
-    trainer.test(model=model,test_loader=test_dataloader, prefered_device=args.device)
+    trainer.test(model=model,test_loader=test_dataloader, device=args.device)
 
     #save the datasets in the dataloaders as a file
     torch.save(train_loader.dataset, train_dataset_save_path)
