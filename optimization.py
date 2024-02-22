@@ -93,7 +93,7 @@ class Objective:
         trainer.train(model=model, epochs=self.n_epochs, train_loader=train_loader, validation_loader=validation_loader,
                        criterion=criterion, optimizer=optimizer,
                          n_epochs_validation=self.n_epochs_validation, early_stopping=self.early_stopping, patience=self.patience, min_delta_percentage=self.min_delta_percentage,
-                         prefered_device=self.prefered_device)
+                         device=self.prefered_device)
         
         #sload test data
         
