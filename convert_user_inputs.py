@@ -35,8 +35,8 @@ def convert_user_input(model_key : str, train_dataset : Dataset, validation_data
     test_dataset.transform = transform
     #create dataloaders
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle)
-    validation_loader = DataLoader(validation_dataset, batch_size=batch_size, shuffle=shuffle)
-    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=shuffle)
+    validation_loader = DataLoader(validation_dataset, batch_size=batch_size, shuffle=False)
+    test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     n_classes = len(train_dataset.classes)
     #load model
     model = models_torch.get_model(model_key, n_classes, pretrained= pretrained)
@@ -80,7 +80,24 @@ def create_observer_structure(is_logging_to_wandb : bool, project_name : str, ru
         trainer.attach(evaluator)
     
     return trainer, model_logger, evaluators, wandb_observer
+
+def create_subjects_and_observers(is_logging_to_wandb : bool, project_name : str, run_name : str,
+                               run_id : str, config : dict, tags : list, watch_gradients : bool,gradients_log_freq : int,
+                               model, averaging_metrics : list, model_logger_evaluation_function : callable, model_logger_criterion : nn.Module,
+                                 model_save_path : str, classwise_metrics : list = None, label_names : list = None):
+    averaging_evaluators = [Evaluator(metrics=metric_group) for metric_group in averaging_metrics]
+    classwise_evaluators = [MultiLabelEvaluator(metrics=classwise_metric_group, label_names=label_names) for classwise_metric_group in classwise_metrics]
     
+    wandb_observer = None
+    if is_logging_to_wandb:
+        wandb_observer = WandbObserver(project_name=project_name, model=model,
+                                    run_id=run_id, run_name = run_name, config=config, tags=tags,
+                                    is_watching=watch_gradients, watch_log_freq=gradients_log_freq)
+    
+    model_logger = ModelLogger(model=model, criterion=model_logger_criterion, evaluation_function=model_logger_evaluation_function,save_path=model_save_path)
+
+    trainer = Trainer()
+    return trainer, model_logger, averaging_evaluators, classwise_evaluators, wandb_observer
 
 
 
