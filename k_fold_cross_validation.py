@@ -19,6 +19,7 @@ from convert_user_inputs import create_datasets,  convert_user_input, create_sub
 from uuid import uuid4
 import json
 import wandb
+import logging
 
 
 
@@ -67,7 +68,6 @@ def single_fold_validation(model: nn.Module, criterion: nn.Module, train_dataloa
     
 def find_operating_point(model: nn.Module, validation_dataloader: DataLoader, device: torch.device):
     trainer = Trainer()
-    processing_key = 'validation_best_thresholds'
     results = trainer.no_grad_evaluate(model=model, data_loader=validation_dataloader, device=device, process_key=None)
     y_true, y_pred = results[trainer.LABEL_KEY], results[trainer.PREDICTION_KEY]
     #find the best threshold for each class
@@ -88,15 +88,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train a model')
     parser.add_argument('--model_key', type=str, help='The model key', default='resnet18')
     parser.add_argument('--n_train_epochs', type=int, help='The number of training epochs', default=2)
-    parser.add_argument('--batch_size', type=int, help='The batch size', default=16)
+    parser.add_argument('--batch_size', type=int, help='The batch size', default=128)
     parser.add_argument('--lr', type=float, help='The learning rate', default=0.001)
     parser.add_argument('--dataset_path', type=str, help='The path to the dataset', default= 'datasets_k_fold/2024-02-20_23-50-58')
-    parser.add_argument('--device', type=str, help='The device to use for training', default= 'cuda')
+    parser.add_argument('--device', type=str, help='The device to use for training', default= 'cuda:1')
     parser.add_argument('--transform_type', type=str, help='The type of transform to use', default= 'standard')
     parser.add_argument('--augmentation', action='store_true', help='Whether to use augmentation')
     #python k_fold_cross_validation.py --model_key resnet18 --n_train_epochs 60 --batch_size 128 --lr 0.00009354747253832916 --dataset_path datasets_k_fold/2024-02-20_23-50-58 --device cuda --transform_type standard --augmentation
     #python k_fold_cross_validation.py --model_key resnet18 --n_train_epochs 60 --batch_size 16 --lr 0.00004614948033730265 --dataset_path datasets_k_fold/2024-02-20_23-50-58 --device cuda --transform_type ben --augmentation
     args = parser.parse_args()
+    device = torch.device(args.device)
     #read the wandb config
     with open('wandb_config.json', 'r') as f:
         wandb_config = json.load(f)
@@ -160,11 +161,13 @@ if __name__ == '__main__':
                 print('Adding forward hook for:', name)
                 module.register_forward_hook(lambda module, input,
                                             output: torch.nn.functional.dropout2d(output, p=0.2, training=module.training))
+        #set logging level
+        logging.basicConfig(level=logging.INFO)
         single_fold_validation(model=model, criterion=criterion, train_dataloader=train_loader, validation_dataloader=validation_loader, trainer=trainer, n_train_epochs=args.n_train_epochs, n_epochs_validation=1,
-                        model_logger=model_logger, train_evaluator=train_evaluator, validation_evaluator=validation_evaluator, validation_evaluator_multilabel=validation_evaluator_multilabel, device=args.device,
+                        model_logger=model_logger, train_evaluator=train_evaluator, validation_evaluator=validation_evaluator, validation_evaluator_multilabel=validation_evaluator_multilabel, device=device,
                         is_logging_to_wandb=True, wandb_logger=wandb_observer)
         trainer.clear_results()
-        test_results = trainer.test(model=model, test_loader=test_dataloader, device=args.device)
+        test_results = trainer.test(model=model, test_loader=test_dataloader, device=device)
         
         trainer.update_results(test_results)
         trainer.notify()
