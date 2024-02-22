@@ -5,7 +5,10 @@ from skmultilearn.model_selection import IterativeStratification
 import os
 
 
-def convert_to_multilabel_format(df : pd.DataFrame, column_to_unify : str, label_separator : str, data_path_column_name : str):
+#todo one hot encode the datasources so they can be used as labels for the stratified split
+#todo think about an implementation that takes a df column names with their uniuqe values and then one hot encodes them
+
+def convert_to_multilabel_format(df : pd.DataFrame, column_to_unify : str, label_separator : str, data_path_column_name : str, other_columns_to_keep : list = []):
     """
     Convert a dataframe to a multilabel format
     """
@@ -15,12 +18,26 @@ def convert_to_multilabel_format(df : pd.DataFrame, column_to_unify : str, label
     df_grouped = df.groupby(data_path_column_name)
     #join the labels
     df_labels_jonined = df_grouped[column_to_unify].apply(label_separator.join).reset_index()
+    #add the other columns to keep
     #drop duplicates
     df_labels_jonined_unique = df_labels_jonined.drop_duplicates(subset = data_path_column_name, keep='first')
-    #generate a new column for each label
-    for label in unique_labels:
-        df_labels_jonined_unique[label] = df_labels_jonined_unique[column_to_unify].str.contains(label).astype(int)
+    #one hot encode the labels
+    df_labels_jonined_unique = one_hot_encode_column(df = df_labels_jonined_unique, column_name = column_to_unify, unique_column_values=unique_labels)
+    #add the other columns to keep
+    for column in other_columns_to_keep:
+        df_labels_jonined_unique[column] = df_grouped[column].first().reset_index(drop=True)
     return df_labels_jonined_unique
+
+def one_hot_encode_column(df : pd.DataFrame, column_name : str, unique_column_values : set):
+    """
+    One hot encode a column
+    """
+    df = df.copy()
+    #get the unique labels
+    #generate a new column for each label
+    for value in unique_column_values:
+        df[value] = df[column_name].str.contains(value).astype(int)
+    return df
 
 def balance_multilabel_df(df : pd.DataFrame, label_names : list, median_deviation : float):
     """
@@ -102,7 +119,10 @@ def stratified_multilabel_dataset_split(df : pd.DataFrame, train_frac : float, v
     df_np = df.values
     X_train, y_train, X_val_test, y_val_test = iterative_train_test_split(X = df_np, y = labels, test_size=validation_frac + test_frac)
     X_val, y_val, X_test, y_test = iterative_train_test_split(X = X_val_test, y = y_val_test, test_size=test_frac / (validation_frac + test_frac))
-    #return the splits
+    #convert the numpy arrays back to dataframes
+    X_train = pd.DataFrame(data = X_train, columns = df.columns)
+    X_val = pd.DataFrame(data = X_val, columns = df.columns)
+    X_test = pd.DataFrame(data = X_test, columns = df.columns)
     return X_train, y_train, X_val, y_val, X_test, y_test
 
 def multi_label_k_fold_split(df : pd.DataFrame, label_columns : list, n_splits : int, multilabel_order : int = 1):
@@ -151,3 +171,29 @@ def test_stratified_multilabel_dataset_split():
     print("Train labels: ", pd.DataFrame(data = y_train, columns = label_columns).value_counts())
     print("Validation labels: ", pd.DataFrame(data = y_val, columns = label_columns).value_counts())
     print("Test labels: ", pd.DataFrame(data = y_test, columns = label_columns).value_counts())
+
+def single_create_dataset_from_k_fold_dataset(fold_train_dataset_paths : list, fold_validation_dataset_paths : list, test_dataset_path : str, single_dataset_save_path : str, label_names: list, train_frac : float):
+    """
+    Create a dataset from the k fold dataset
+    """
+    #load the datasets
+    fold_train_datasets = [pd.read_csv(fold_train_dataset_path) for fold_train_dataset_path in fold_train_dataset_paths]
+    fold_validation_datasets = [pd.read_csv(fold_validation_dataset_path) for fold_validation_dataset_path in fold_validation_dataset_paths]
+    #concatenate the datasets
+    train_dataset = pd.concat(fold_train_datasets)
+    validation_dataset = pd.concat(fold_validation_datasets)
+    test_dataset = pd.read_csv(test_dataset_path)
+    #join the train, validation and dataset
+    train_validation_dataset = pd.concat([train_dataset, validation_dataset])
+    #drop duplicates
+    train_validation_dataset = train_validation_dataset.drop_duplicates(keep='first')
+    #split the train and validation dataset
+    train_dataset, validation_dataset, _ = stratified_multilabel_dataset_split(df = train_validation_dataset, train_frac = train_frac, validation_frac = 1 - train_frac, test_frac = 0, label_columns = label_names)
+    #save the datasets and keep the file names
+    train_file_name = os.path.join(single_dataset_save_path, "train_dataset.csv")
+    validation_file_name = os.path.join(single_dataset_save_path, "validation_dataset.csv")
+    test_file_name = os.path.join(single_dataset_save_path, "test_dataset.csv")
+    train_dataset.to_csv(train_file_name, index=False)
+    validation_dataset.to_csv(validation_file_name, index=False)
+    test_dataset.to_csv(test_file_name, index=False)
+    return train_file_name, validation_file_name, test_file_name
