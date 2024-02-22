@@ -1,3 +1,6 @@
+#!/bin/bash
+# This is a Slurm batch script for executing k fold cross validation
+
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate ird_deep_learning
 cd ~/IRD-DeepLearning
