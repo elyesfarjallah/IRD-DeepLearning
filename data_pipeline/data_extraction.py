@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import re
 import matplotlib.pyplot as plt
-
+import numbers
 class DataExtractor(ABC):
     def __init__(self, database_path: str):
         self.database_path = database_path
