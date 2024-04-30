@@ -91,7 +91,7 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', type=int, help='The batch size', default=128)
     parser.add_argument('--lr', type=float, help='The learning rate', default=0.001)
     parser.add_argument('--dataset_path', type=str, help='The path to the dataset', default= 'datasets_k_fold/2024-02-20_23-50-58')
-    parser.add_argument('--device', type=str, help='The device to use for training', default= 'cuda:1')
+    parser.add_argument('--device', type=str, help='The device to use for training', default= 'cuda:0')
     parser.add_argument('--transform_type', type=str, help='The type of transform to use', default= 'standard')
     parser.add_argument('--augmentation', action='store_true', help='Whether to use augmentation')
     #python k_fold_cross_validation.py --model_key resnet18 --n_train_epochs 60 --batch_size 128 --lr 0.00009354747253832916 --dataset_path datasets_k_fold/2024-02-20_23-50-58 --device cuda --transform_type standard --augmentation
