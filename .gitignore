@@ -13,6 +13,7 @@ try.py
 *.csv
 *.png
 *.jpg
+*.JPG
 *.jpeg
 *.xlsx
 !.gitkeep
