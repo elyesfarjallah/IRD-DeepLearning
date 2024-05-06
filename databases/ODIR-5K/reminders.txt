@@ -1,0 +1,2 @@
+the dataset contains duplicate entries
+dataset contains entries which have the same disease key words multiple times for the same entries
