@@ -196,7 +196,7 @@ class ODIR5KDataExtractor(DataExtractor):
                     path_to_img_left = self.database_train_images_path + row['Left-Fundus']
                 elif row['Left-Fundus'] in testing_images:
                     path_to_img_left = self.database_test_images_path + row['Left-Fundus']
-                odir5k_df = self.add_entry_to_dataset(odir5k_df, left_keyword, path_to_img_left, 'ODIR-5k')
+                odir5k_df = self.add_entry_to_dataset(odir5k_df, left_keyword, path_to_img_left, self.dataset_name)
             #do the same for the right side
             for right_keyword in keyword_set_right:
                 path_to_img_right = ""
