@@ -3,7 +3,9 @@ import pandas as pd
 import os
 import re
 import matplotlib.pyplot as plt
-import numbers
+import numpy as np
+import data_extraction_utils
+import pydicom
 class DataExtractor(ABC):
     def __init__(self, database_path: str):
         self.database_path = database_path
@@ -11,6 +13,7 @@ class DataExtractor(ABC):
     @abstractmethod
     def extract(self):
         pass
+
 
     #method that adds an entry to an existing dataset
     def add_entry_to_dataset(self, dataset: pd.DataFrame, disease_key : str, path_to_img : str, dataset_name : str):
@@ -269,9 +272,37 @@ class RIPSDataExtractor(DataExtractor):
             #add the entry to the dataset
             rips_df = self.add_entry_to_dataset(rips_df, disease_key, path_to_img, 'RIPS')
         return rips_df
-#todo finish data extraction classes, test them and create a data pipeline that uses them, 5 fold cross validation
+
+class UkbDataExtractor(DataExtractor):
+    dataset_name = "UKB"
+    def __init__(self, database_path: str, label_path: str,
+                  label_column_name: str = 'Diagnose', key_column_name: str = 'Index', cfp_column_name: str = 'CFP'):
+        super().__init__(database_path=database_path)
+        self.label_source_df = pd.read_excel(label_path)
+        self.labels = self.label_source_df[label_column_name].values
+        keys_unformatted = self.label_source_df[key_column_name].values
+        self.keys = np.vectorize(lambda x: str(x).zfill(4))(keys_unformatted)
+        cfps = self.label_source_df[cfp_column_name].values
+        self.contain_cfp = np.vectorize(lambda x: 'True' == x)(cfps)
+
+    def extract(self):
+        #get all the keys and labels which contain a cfp
+        keys_with_cfp = self.keys[self.contain_cfp]
+        labels_with_cfp = self.labels[self.contain_cfp]
+        #match the keys with the labels
+        matched_data = data_extraction_utils.match_keys_labels(keys=keys_with_cfp, labels=labels_with_cfp, data_storage_path=self.database_path)
+        #check if the files have pixel data
+        pixel_checker = lambda x: data_extraction_utils.dicom_detect_pixels(pydicom.dcmread(x))
+        have_pixels = np.vectorize(pixel_checker)(matched_data[:,0])
+        #filter the data to only contain pixel data
+        pixel_data_paths_labels = matched_data[have_pixels]
+        print(f'Found {len(pixel_data_paths_labels)} images with pixel data')
+        return pixel_data_paths_labels
 
 
+
+
+    
 def extract_all_databases():
     rfmid_train_extractor = RFMiDDataExtractor(database_path='databases/RFMiD/Training_Set/RFMiD_Training_Labels.csv',data_path='databases/RFMiD/Training_Set/Training/', file_format='png')
     rfmid_validation_extractor = RFMiDDataExtractor(database_path='databases/RFMiD/Evaluation_Set/RFMiD_Validation_Labels.csv', data_path='databases/RFMiD/Test_Set/Test/', file_format='png')
@@ -368,3 +399,4 @@ def test_rfmid():
     rfmid_test_extractor = RFMiDDataExtractor(database_path='databases/RFMiD/Test_Set/RFMiD_Testing_Labels.csv', file_format='png')
     concat = pd.concat([rfmid_train_extractor.source_df, rfmid_validation_extractor.source_df, rfmid_test_extractor.source_df])
     print(concat['Normal'].sum())
+
