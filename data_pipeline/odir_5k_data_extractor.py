@@ -1,0 +1,76 @@
+from data_pipeline.data_extraction import DataExtractor
+import pandas as pd
+import numpy as np
+import os
+
+class ODIR5KDataExtractor(DataExtractor):
+    dataset_name = "ODIR-5K"
+    def __init__(self, database_path: str, database_test_images_path: str, database_train_images_path: str):
+        super().__init__(database_path=database_path)
+        self.source_df = pd.read_csv(database_path)
+        #Important: drop the duplicates from the dataframe else there will be duplicates in the dataset
+        self.source_df = self.source_df.drop_duplicates(keep='first', subset=['Right-Fundus', 'Left-Fundus'])
+        self.database_test_images_path = database_test_images_path
+        self.database_train_images_path = database_train_images_path
+
+    def extract(self):
+        instance_id_column_name = 'ID'
+        left_keywords = ['Left-Fundus', 'Left-Diagnostic Keywords', instance_id_column_name]
+        right_keywords = ['Right-Fundus', 'Right-Diagnostic Keywords', instance_id_column_name]
+        #copy
+        copied_source = self.source_df.copy()
+        #add the current index as a column
+        
+        copied_source[instance_id_column_name] = copied_source.index
+        #
+        right_fundus_df = copied_source[right_keywords]
+        left_fundus_df = copied_source[left_keywords]
+        #rename the columns
+        data_column_name = 'Fundus'
+        label_column_name = 'Diagnostic Keywords'
+        new_column_names = [data_column_name, label_column_name, instance_id_column_name]
+        right_fundus_df.columns = new_column_names
+        left_fundus_df.columns = new_column_names
+        #concatenate the dataframes
+        rejoined_df = pd.concat([right_fundus_df, left_fundus_df])
+        train_directory = os.listdir(self.database_train_images_path)
+        test_directory = os.listdir(self.database_test_images_path)
+
+        #check which datapoints are in the test set
+        test_df = rejoined_df[rejoined_df[data_column_name].isin(test_directory)]
+        #check which datapoints are in the train set
+        train_df = rejoined_df[rejoined_df[data_column_name].isin(train_directory)]
+        #add a path column to the dataframes
+        path_column_name = 'Path'
+        test_df[path_column_name] = test_df[data_column_name].apply(lambda x: f'{self.database_test_images_path}/{x}')
+        train_df[path_column_name] = train_df[data_column_name].apply(lambda x: f'{self.database_train_images_path}/{x}')
+        #rejoin the dataframes
+        full_path_df = pd.concat([test_df, train_df])
+        #drop the fundus column
+        full_path_df = full_path_df.drop(columns=[data_column_name])
+        #resort the columns instance_id, path, Diagnostic Keywords
+        full_path_df = full_path_df[[instance_id_column_name, path_column_name, label_column_name]]
+        #convert to np array
+        full_path_np = full_path_df.values
+        #get the labels
+        labels = full_path_np[:,-1]
+        #split the labels by the ", " separator
+        labels = [label.split('，') for label in labels]
+        #make the label list all the same length
+        max_label_length = max([len(label) for label in labels])
+        labels = [label + [None]*(max_label_length-len(label)) for label in labels]
+        #delete the old label column
+        no_label_np = np.delete(full_path_np, -1, -1)
+        #add the labels to the np array
+        result_np = np.hstack((no_label_np, np.array(labels)))
+        return result_np
+
+#test
+def test_extract():
+    base_path = 'databases/ODIR-5K/full_df.csv'
+    train_images_path = 'databases/ODIR-5K/Training Images'
+    test_images_path = 'databases/ODIR-5K/Testing Images'
+    odir5k_data_extractor = ODIR5KDataExtractor(database_path=base_path, database_test_images_path=test_images_path, database_train_images_path=train_images_path)
+    data = odir5k_data_extractor.extract()
+    #save the data as test.csv
+    pd.DataFrame(data).to_csv('test_save_odir5k_converted.csv',header=False, index=False)
