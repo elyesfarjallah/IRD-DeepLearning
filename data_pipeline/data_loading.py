@@ -44,6 +44,8 @@ class DfDataset(Dataset):
             img = self.augmentations(img)
         if self.transform:
             img = self.transform(img)
+        #convert image to tensor
+        img = transforms.ToTensor()(img)
         return img, label
     
     def calculate_class_weights(self):
