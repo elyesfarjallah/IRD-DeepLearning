@@ -1,5 +1,6 @@
 from data_pipeline.data_extraction import DataExtractor
 from data_pipeline import data_extraction_utils
+from data_pipeline.data_splitting_utils import split_by_instance_count, stratified_instance_split
 import numpy as np
 import pandas as pd
 import pydicom
@@ -32,7 +33,17 @@ class UkbDataExtractor(DataExtractor):
         have_pixels = np.vectorize(pixel_checker)(matched_data[:,0])
         #filter the data to only contain pixel data
         pixel_data_paths_labels = matched_data[have_pixels]
-        return pixel_data_paths_labels
+        self.extracted_data = pixel_data_paths_labels
+        return self.extracted_data
+    
+    def get_labels(self):
+        return self.extracted_data[:,2:]
+    
+    def get_file_paths(self):
+        return self.extracted_data[:,1]
+    
+    def get_instance_ids(self):
+        return self.extracted_data[:,0]
     
     def extract_data_of_label(self, label):
         self.indexes_to_extract = self.labels == label
@@ -44,5 +55,9 @@ class UkbDataExtractor(DataExtractor):
     def extract_data_of_labels(self, labels):
         return np.vectorize(self.extract_data_of_label)(labels)
     
-
-    
+    def split_extracted_data(self, split_portions, stratify):
+        instance_list = self.get_instance_ids()
+        if stratify:
+            stratified_instance_split(instance_list=instance_list, split_ratios=split_portions, stratify_column=stratify)
+        else:
+            split_by_instance_count(instance_list=instance_list, split_ratios=split_portions)

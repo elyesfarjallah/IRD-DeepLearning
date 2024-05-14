@@ -1,4 +1,5 @@
 from data_pipeline.data_extraction import DataExtractor
+from data_pipeline.data_splitting_utils import split_by_instance_count
 import pandas as pd
 import numpy as np
 import os
@@ -63,7 +64,24 @@ class ODIR5KDataExtractor(DataExtractor):
         no_label_np = np.delete(full_path_np, -1, -1)
         #add the labels to the np array
         result_np = np.hstack((no_label_np, np.array(labels)))
-        return result_np
+        self.extracted_data = result_np
+        return self.extracted_data
+    
+    def get_labels(self):
+        return self.extracted_data[:,2:]
+    
+    def get_file_paths(self):
+        return self.extracted_data[:,1]
+    
+    def get_instance_ids(self):
+        return self.extracted_data[:,0]
+    
+    def split_extracted_data(self, split_portions, stratify):
+        if stratify:
+            #todo add warning
+            pass
+        #todo check what exactly here is returned
+        return split_by_instance_count(instance_list=self.get_instance_ids, split_ratios=split_portions)
 
 #test
 def test_extract():

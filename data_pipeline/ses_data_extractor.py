@@ -1,7 +1,7 @@
 from data_pipeline.data_extraction import DataExtractor
 from data_pipeline.data_extraction_utils import find_files
 from data_pipeline.data_extraction_utils import insert_instance_id_dimension
-
+from data_pipeline.data_splitting_utils import split_by_ratios
 import pandas as pd
 import numpy as np
 import os
@@ -30,7 +30,21 @@ class SESDataExtractor(DataExtractor):
             instance_result = np.array([file_paths, labels]).T
             #insert the instance id dimension
             result.extend(insert_instance_id_dimension(instance_result))
-        return np.array(result)
+        self.extracted_data = np.array(result)
+        return self.extracted_data
+    
+    def get_labels(self):
+        return self.extracted_data[:,2:]
+    
+    def get_file_paths(self):
+        return self.extracted_data[:,1]
+    
+    def get_instance_ids(self):
+        return self.extracted_data[:,0]
+    
+    def split_extracted_data(self, split_portions, stratify):
+        return split_by_ratios(data=self.extracted_data, split_ratios=split_portions, stratify=stratify)
+    
 
 #test
 def test_extract():

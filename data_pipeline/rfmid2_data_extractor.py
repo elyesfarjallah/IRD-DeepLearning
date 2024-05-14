@@ -2,6 +2,8 @@ from data_pipeline.data_extraction import DataExtractor
 from data_pipeline.data_extraction_utils import reverse_one_hot_encode
 from data_pipeline.data_extraction_utils import rename_columns_from_dict
 from data_pipeline.data_extraction_utils import insert_instance_id_dimension
+from data_pipeline.data_splitting_utils import stratified_multilabel_split, split_by_ratios
+from data_pipeline.data_processing_utils import create_one_hot_encoder
 from data_pipeline.rfmid_data_extractor import RFMiDDataExtractor
 import pandas as pd
 import numpy as np
@@ -63,27 +65,13 @@ class RFMiD2DataExtractor(DataExtractor):
     abbreviation_map.update(RFMiDDataExtractor.abbreviation_map)
     dataset_name = "RFMiD2"
     csv_encoding = 'ISO-8859-1'
-    def __init__(self, database_path: str, data_path : str, file_format: str):
+    def __init__(self, database_path: str, data_path : str, file_format: str = 'jpg'):
         super().__init__(database_path=database_path)
         self.source_df = pd.read_csv(database_path, encoding=self.csv_encoding)
         self.data_path = data_path
         self.file_format = file_format
     
     def extract(self):
-        # result_df = pd.DataFrame(columns=['disease_key','path_to_img','dataset_name'])
-        # for abbreviation in self.abbreviation_map.keys():
-        #     #get all the images for the abberation
-        #     try:
-        #         images = self.source_df[self.source_df[abbreviation] > 0]
-        #     except:
-        #         continue
-        #     for index, row in images.iterrows():
-        #         #get the path to the image
-        #         image_id = str(int(row['ID']))
-        #         path_to_img = f'{self.data_path}/{image_id}.{self.file_format}'
-        #         #add the entry to the dataset
-        #         result_df = self.add_entry_to_dataset(result_df, self.abbreviation_map[abbreviation], path_to_img, self.dataset_name)
-        # return result_df
         datapoint_id_column_name = 'ID'
         full_path_column_name = 'Path'
         #copy the source_df
@@ -101,12 +89,46 @@ class RFMiD2DataExtractor(DataExtractor):
         #index needs to be reset to get the path as a column
         result_np = reverse_encoded_df.reset_index().values
         result_np_with_instance_id = insert_instance_id_dimension(data = result_np)
+        self.extracted_data = result_np_with_instance_id
         return result_np_with_instance_id
 
     def convert_to_full_path_index_df(self, df: pd.DataFrame, datapoint_id_column_name : str,
                                        full_path_column_name: str) -> pd.DataFrame:
         df[full_path_column_name] = df[datapoint_id_column_name].apply(lambda x: f'{self.data_path}/{str(int(x))}.{self.file_format}')
         return df.set_index(full_path_column_name)
+    
+    def get_labels(self):
+        return self.extracted_data[:,2:]
+    
+    def get_file_paths(self):
+        return self.extracted_data[:,1]
+    
+    def get_instance_ids(self):
+        return self.extracted_data[:,0]
+    
+    def split_extracted_data(self, split_portions, stratify):
+        if stratify:
+            #get all the labels
+            labels = self.get_labels()
+            #unique labels
+            flat_labels = labels.flatten()
+            unique_labels = np.unique(flat_labels)
+            #filter out none values
+            unique_labels_no_nan = unique_labels[~np.isnan(unique_labels)]
+            #encode the labels
+            encoder = create_one_hot_encoder(unique_labels=unique_labels_no_nan)
+            labels_encoded = []
+            for instance_label in labels:
+                label_encododed = []
+                for label in instance_label:
+                    #encode the label
+                    encoded_label = encoder.transform(label)
+                    label_encododed.append(encoded_label)
+                label_sum = np.sum(labels_encoded, axis=0)
+                labels_encoded.append(label_sum)
+            return stratified_multilabel_split(data=self.extracted_data, labels=labels_encoded, split_ratios=split_portions)
+        else:
+            return split_by_ratios(data=self.extracted_data, split_ratios=split_portions)
 
 #test
 def test_extract():

@@ -1,5 +1,6 @@
 from data_pipeline.data_extraction import DataExtractor
 from data_pipeline.data_extraction_utils import find_files
+from data_pipeline.data_splitting_utils import split_by_instance_count
 import os
 import numpy as np
 import pandas as pd
@@ -22,10 +23,23 @@ class RIPSDataExtractor(DataExtractor):
             #create an array of the instance ids, file paths and labels then Transpose it
             instance_result = np.array([matching__instance_ids, instance_file_paths, labels]).T
             result.extend(instance_result)
-        return np.array(result)
-#test
-base_path = 'databases/RIPS/Original'
-rips_data_extractor = RIPSDataExtractor(database_path=base_path)
-data = rips_data_extractor.extract()
-#save the data as test.csv
-pd.DataFrame(data).to_csv('test_save_rips_converted.csv',header=False, index=False)
+        self.extracted_data = np.array(result)
+        return self.extracted_data
+    
+    def get_labels(self):
+        return self.extracted_data[:,2:]
+    
+    def get_data(self):
+        return self.extracted_data[:,1]
+    
+    def get_instance_ids(self):
+        return self.extracted_data[:,0]
+    
+    def split_extracted_data(self, split_portions, stratify):
+        return split_by_instance_count(instance_list=self.get_instance_ids(), split_ratios=split_portions)
+def test_extract():
+    base_path = 'databases/RIPS/Original'
+    rips_data_extractor = RIPSDataExtractor(database_path=base_path)
+    data = rips_data_extractor.extract()
+    #save the data as test.csv
+    pd.DataFrame(data).to_csv('test_save_rips_converted.csv',header=False, index=False)
