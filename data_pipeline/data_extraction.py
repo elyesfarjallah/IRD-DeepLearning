@@ -9,11 +9,27 @@ import pydicom
 class DataExtractor(ABC):
     def __init__(self, database_path: str):
         self.database_path = database_path
+        self.extracted_data = None
 
     @abstractmethod
     def extract(self):
         pass
+    
+    @abstractmethod
+    def get_labels(self):
+        pass
 
+    @abstractmethod
+    def get_file_paths(self):
+        pass
+
+    @abstractmethod
+    def get_instance_ids(self):
+        pass
+
+    @abstractmethod
+    def split_extracted_data(self, split_portions, stratify):
+        pass
 
     #method that adds an entry to an existing dataset
     def add_entry_to_dataset(self, dataset: pd.DataFrame, disease_key : str, path_to_img : str, dataset_name : str):
