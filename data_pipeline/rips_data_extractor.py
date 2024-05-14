@@ -36,7 +36,16 @@ class RIPSDataExtractor(DataExtractor):
         return self.extracted_data[:,0]
     
     def split_extracted_data(self, split_portions, stratify):
-        return split_by_instance_count(instance_list=self.get_instance_ids(), split_ratios=split_portions)
+        if stratify:
+            #todo add warning
+            pass
+        #todo check what exactly here is returned
+        instance_split = split_by_instance_count(instance_list=self.get_instance_ids(), split_ratios=split_portions)
+        data_splits = [[] * len(instance_split)]
+        for split, data_split in zip(instance_split, data_splits):
+            extraction_series = np.isin(self.get_instance_ids(), split)
+            data_split.extend(self.extracted_data[extraction_series])
+        return data_splits
 def test_extract():
     base_path = 'databases/RIPS/Original'
     rips_data_extractor = RIPSDataExtractor(database_path=base_path)

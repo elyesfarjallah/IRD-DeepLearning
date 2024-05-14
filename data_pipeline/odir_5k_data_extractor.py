@@ -81,7 +81,13 @@ class ODIR5KDataExtractor(DataExtractor):
             #todo add warning
             pass
         #todo check what exactly here is returned
-        return split_by_instance_count(instance_list=self.get_instance_ids, split_ratios=split_portions)
+        instance_split = split_by_instance_count(instance_list=self.get_instance_ids(), split_ratios=split_portions)
+        data_splits = [[] * len(instance_split)]
+        for split, data_split in zip(instance_split, data_splits):
+            extraction_series = np.isin(self.get_instance_ids(), split)
+            data_split.extend(self.extracted_data[extraction_series])
+        return data_splits
+
 
 #test
 def test_extract():
@@ -92,3 +98,7 @@ def test_extract():
     data = odir5k_data_extractor.extract()
     #save the data as test.csv
     pd.DataFrame(data).to_csv('test_save_odir5k_converted.csv',header=False, index=False)
+    #split the data
+    split_portions = [0.7, 0.1, 0.2]
+    split_data = odir5k_data_extractor.split_extracted_data(split_portions, stratify=False)
+    print(split_data)

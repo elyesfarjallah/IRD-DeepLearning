@@ -58,6 +58,11 @@ class UkbDataExtractor(DataExtractor):
     def split_extracted_data(self, split_portions, stratify):
         instance_list = self.get_instance_ids()
         if stratify:
-            stratified_instance_split(instance_list=instance_list, split_ratios=split_portions, stratify_column=stratify)
+            instance_split = stratified_instance_split(instance_list=instance_list, split_ratios=split_portions, stratify_column=stratify)
         else:
-            split_by_instance_count(instance_list=instance_list, split_ratios=split_portions)
+            instance_split = split_by_instance_count(instance_list=instance_list, split_ratios=split_portions)
+        data_splits = [[] * len(instance_split)]
+        for split, data_split in zip(instance_split, data_splits):
+            extraction_series = np.isin(self.get_instance_ids(), split)
+            data_split.extend(self.extracted_data[extraction_series])
+        return data_splits
