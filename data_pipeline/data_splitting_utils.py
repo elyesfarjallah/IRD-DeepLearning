@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+from skmultilearn.model_selection import iterative_train_test_split
+from sklearn.model_selection import train_test_split
+
 
 def assign_instance_counts(file_counts, ideal_partition_counts):
     dynamic_counts = [0 for _ in range(len(ideal_partition_counts))]
@@ -92,6 +95,19 @@ def stratified_instance_split(instance_list, split_ratios, stratify_column):
         for i, split in enumerate(splits):
             split_instances[i].extend(split)
     return split_instances
+
+def stratified_multilabel_split(data, labels, split_ratios : np.array):
+    rest_portion = np.sum(split_ratios[1:])
+    X_train, y_train, X_val_test, y_val_test = iterative_train_test_split(X = data, y = labels, test_size=rest_portion)
+    X_val, y_val, X_test, y_test = iterative_train_test_split(X = X_val_test, y = y_val_test, test_size=split_ratios[-1] / rest_portion)
+    return X_train, y_train, X_val, y_val, X_test, y_test
+
+def split_by_ratios(data, split_ratios : np.array, shuffle : bool = True, stratify : np.array = None):
+    rest_portion = np.sum(split_ratios[1:])
+    X_train, X_val_test, y_train, y_val_test = train_test_split(arrays = data, test_size=rest_portion, shuffle=True, stratify=stratify)
+    X_val, X_test, y_val, y_test = train_test_split(arrays = X_val_test, test_size=split_ratios[-1] / rest_portion, shuffle=y_val_test)
+    return X_train, y_train, X_val, y_val, X_test, y_test
+
 
 def test_split_by_instance_count():
     #test the function
