@@ -31,22 +31,30 @@ class OneThousandImagesDataExtractor(DataExtractor):
         #insert the instance id dimension
         extracted_data = insert_instance_id_dimension(extracted_data)
         self.extracted_data = extracted_data
+        self.remove_not_existing_file_paths()
         return self.extracted_data
     
-    def get_labels(self):
-        return self.extracted_data[:,2:]
+    def get_labels(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,2:] if data_truth_series is None else self.extracted_data[data_truth_series][:,2:]
     
-    def get_data(self):
-        return self.extracted_data[:,1]
+    def get_file_paths(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,1] if data_truth_series is None else self.extracted_data[data_truth_series][:,1]
     
-    def get_instance_ids(self):
-        return self.extracted_data[:,0]
+    def get_instance_ids(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,0] if data_truth_series is None else self.extracted_data[data_truth_series][:,0]
     
     def split_extracted_data(self, split_portions, stratify):
+        labels = self.get_labels()
         if stratify:
-            return split_by_ratios(data=self.extracted_data, split_ratios=split_portions, stratify=self.get_labels())
+            split_data = split_by_ratios(data=self.extracted_data, split_ratios=split_portions, labels=labels, stratify=labels)
+
         else:
-            return split_by_ratios(data=self.extracted_data, split_ratios=split_portions)
+            split_data = split_by_ratios(data=self.extracted_data, labels=labels, split_ratios=split_portions)
+        
+        #set the data source name
+        for split in split_data:
+            split.set_data_source_name(self.dataset_name)
+        return split_data
     
 
 #test the data extraction

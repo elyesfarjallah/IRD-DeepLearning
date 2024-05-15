@@ -4,7 +4,9 @@ from data_pipeline.data_extraction_utils import rename_columns_from_dict
 from data_pipeline.data_extraction_utils import insert_instance_id_dimension
 from data_pipeline.data_splitting_utils import stratified_multilabel_split, split_by_ratios
 from data_pipeline.data_processing_utils import create_one_hot_encoder
+from data_pipeline.data_processing_utils import encode_multistring_labels
 from data_pipeline.rfmid_data_extractor import RFMiDDataExtractor
+from data_pipeline.data_package import DataPackage
 import pandas as pd
 import numpy as np
 
@@ -90,6 +92,7 @@ class RFMiD2DataExtractor(DataExtractor):
         result_np = reverse_encoded_df.reset_index().values
         result_np_with_instance_id = insert_instance_id_dimension(data = result_np)
         self.extracted_data = result_np_with_instance_id
+        self.remove_not_existing_file_paths()
         return result_np_with_instance_id
 
     def convert_to_full_path_index_df(self, df: pd.DataFrame, datapoint_id_column_name : str,
@@ -97,38 +100,36 @@ class RFMiD2DataExtractor(DataExtractor):
         df[full_path_column_name] = df[datapoint_id_column_name].apply(lambda x: f'{self.data_path}/{str(int(x))}.{self.file_format}')
         return df.set_index(full_path_column_name)
     
-    def get_labels(self):
-        return self.extracted_data[:,2:]
+    def get_labels(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,2:] if data_truth_series is None else self.extracted_data[data_truth_series][:,2:]
     
-    def get_file_paths(self):
-        return self.extracted_data[:,1]
+    def get_file_paths(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,1] if data_truth_series is None else self.extracted_data[data_truth_series][:,1]
     
-    def get_instance_ids(self):
-        return self.extracted_data[:,0]
-    
+    def get_instance_ids(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,0] if data_truth_series is None else self.extracted_data[data_truth_series][:,0]
+      
     def split_extracted_data(self, split_portions, stratify):
         if stratify:
             #get all the labels
             labels = self.get_labels()
             #unique labels
             flat_labels = labels.flatten()
+            #filter out none values
+            flat_labels = flat_labels[flat_labels != None]
             unique_labels = np.unique(flat_labels)
             #filter out none values
-            unique_labels_no_nan = unique_labels[~np.isnan(unique_labels)]
             #encode the labels
-            encoder = create_one_hot_encoder(unique_labels=unique_labels_no_nan)
-            labels_encoded = []
-            for instance_label in labels:
-                label_encododed = []
-                for label in instance_label:
-                    #encode the label
-                    encoded_label = encoder.transform(label)
-                    label_encododed.append(encoded_label)
-                label_sum = np.sum(labels_encoded, axis=0)
-                labels_encoded.append(label_sum)
-            return stratified_multilabel_split(data=self.extracted_data, labels=labels_encoded, split_ratios=split_portions)
+            encoder = create_one_hot_encoder(unique_labels=unique_labels)
+            labels_encoded = encode_multistring_labels(labels=labels, encoder=encoder)
+            splits_packaged = stratified_multilabel_split(data=self.extracted_data, labels=labels_encoded, split_ratios=split_portions)
+            splits_data = [split.get_data() for split in splits_packaged]
+            return [DataPackage(data=split_data, labels=split_data[:,2:], data_source_name=self.dataset_name) for split_data in splits_data]
         else:
-            return split_by_ratios(data=self.extracted_data, split_ratios=split_portions)
+            split_data = split_by_ratios(data=self.extracted_data, labels=labels, split_ratios=split_portions)
+            for split in split_data:
+                split.set_data_source_name(self.dataset_name)
+            return split_data
 
 #test
 def test_extract():

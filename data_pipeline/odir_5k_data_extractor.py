@@ -1,5 +1,6 @@
 from data_pipeline.data_extraction import DataExtractor
 from data_pipeline.data_splitting_utils import split_by_instance_count
+from data_pipeline.data_package import DataPackage
 import pandas as pd
 import numpy as np
 import os
@@ -65,27 +66,30 @@ class ODIR5KDataExtractor(DataExtractor):
         #add the labels to the np array
         result_np = np.hstack((no_label_np, np.array(labels)))
         self.extracted_data = result_np
+        self.remove_not_existing_file_paths()
         return self.extracted_data
     
-    def get_labels(self):
-        return self.extracted_data[:,2:]
+    def get_labels(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,2:] if data_truth_series is None else self.extracted_data[data_truth_series][:,2:]
     
-    def get_file_paths(self):
-        return self.extracted_data[:,1]
+    def get_file_paths(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,1] if data_truth_series is None else self.extracted_data[data_truth_series][:,1]
     
-    def get_instance_ids(self):
-        return self.extracted_data[:,0]
+    def get_instance_ids(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,0] if data_truth_series is None else self.extracted_data[data_truth_series][:,0]
     
     def split_extracted_data(self, split_portions, stratify):
         if stratify:
             #todo add warning
             pass
-        #todo check what exactly here is returned
+        #get the ids assigned to splits
         instance_split = split_by_instance_count(instance_list=self.get_instance_ids(), split_ratios=split_portions)
-        data_splits = [[] * len(instance_split)]
-        for split, data_split in zip(instance_split, data_splits):
+        data_splits = []
+        for split in instance_split:
             extraction_series = np.isin(self.get_instance_ids(), split)
-            data_split.extend(self.extracted_data[extraction_series])
+            split_data = self.extracted_data[extraction_series]
+            split_labels = self.get_labels(data_truth_series=extraction_series)
+            data_splits.append(DataPackage(data=split_data, labels=split_labels, data_source_name=self.dataset_name))
         return data_splits
 
 

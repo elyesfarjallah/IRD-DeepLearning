@@ -4,7 +4,7 @@ from data_pipeline.data_splitting_utils import split_by_instance_count, stratifi
 import numpy as np
 import pandas as pd
 import pydicom
-
+#todo data splitting still needs to be adjusted
 class UkbDataExtractor(DataExtractor):
     dataset_name = "UKB"
     def __init__(self, database_path: str, label_path: str,
@@ -34,6 +34,7 @@ class UkbDataExtractor(DataExtractor):
         #filter the data to only contain pixel data
         pixel_data_paths_labels = matched_data[have_pixels]
         self.extracted_data = pixel_data_paths_labels
+        self.remove_not_existing_file_paths()
         return self.extracted_data
     
     def get_labels(self):

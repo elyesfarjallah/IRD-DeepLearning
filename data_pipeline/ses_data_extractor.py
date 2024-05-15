@@ -31,19 +31,25 @@ class SESDataExtractor(DataExtractor):
             #insert the instance id dimension
             result.extend(insert_instance_id_dimension(instance_result))
         self.extracted_data = np.array(result)
+        self.remove_not_existing_file_paths()
         return self.extracted_data
     
-    def get_labels(self):
-        return self.extracted_data[:,2:]
+    def get_labels(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,2:] if data_truth_series is None else self.extracted_data[data_truth_series][:,2:]
     
-    def get_file_paths(self):
-        return self.extracted_data[:,1]
+    def get_file_paths(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,1] if data_truth_series is None else self.extracted_data[data_truth_series][:,1]
     
-    def get_instance_ids(self):
-        return self.extracted_data[:,0]
-    
+    def get_instance_ids(self, data_truth_series : np.ndarray = None):
+        return self.extracted_data[:,0] if data_truth_series is None else self.extracted_data[data_truth_series][:,0]
+       
     def split_extracted_data(self, split_portions, stratify):
-        return split_by_ratios(data=self.extracted_data, split_ratios=split_portions, stratify=stratify)
+        labels = self.get_labels()
+        split_data = split_by_ratios(data=self.extracted_data, labels=labels, split_ratios=split_portions, stratify=labels)
+        #set the data source name
+        for split in split_data:
+            split.set_data_source_name(self.dataset_name)
+        return split_data
     
 
 #test
