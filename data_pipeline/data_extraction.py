@@ -4,7 +4,6 @@ import os
 import re
 import matplotlib.pyplot as plt
 import numpy as np
-import data_extraction_utils
 import pydicom
 class DataExtractor(ABC):
     def __init__(self, database_path: str):
@@ -16,21 +15,29 @@ class DataExtractor(ABC):
         pass
     
     @abstractmethod
-    def get_labels(self):
+    def get_labels(self, data_truth_series: np.ndarray = None):
         pass
 
     @abstractmethod
-    def get_file_paths(self):
+    def get_file_paths(self, data_truth_series: np.ndarray = None):
         pass
 
     @abstractmethod
-    def get_instance_ids(self):
+    def get_instance_ids(self, data_truth_series: np.ndarray = None):
         pass
 
     @abstractmethod
     def split_extracted_data(self, split_portions, stratify):
         pass
 
+    def do_file_paths_exist(self):
+        return all([os.path.exists(file_path) for file_path in self.get_file_paths()])
+    
+    def remove_not_existing_file_paths(self):
+        file_paths = self.get_file_paths()
+        file_paths_exist = np.array([os.path.exists(file_path) for file_path in file_paths])
+        self.extracted_data = self.extracted_data[file_paths_exist]
+        return self.extracted_data
     #method that adds an entry to an existing dataset
     def add_entry_to_dataset(self, dataset: pd.DataFrame, disease_key : str, path_to_img : str, dataset_name : str):
         #create a new entry
