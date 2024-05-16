@@ -54,6 +54,7 @@ class OneThousandImagesDataExtractor(DataExtractor):
         #set the data source name
         for split in split_data:
             split.set_data_source_name(self.dataset_name)
+        self.current_split = split_data
         return split_data
     
 

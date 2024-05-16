@@ -49,6 +49,7 @@ class RIPSDataExtractor(DataExtractor):
             split_data = self.extracted_data[extraction_series]
             split_labels = self.extracted_data[extraction_series][:,2:]
             data_splits.append(DataPackage(data=split_data, labels=split_labels, data_source_name=self.dataset_name))
+        self.current_split = data_splits
         return data_splits
 def test_extract():
     base_path = 'databases/RIPS/Original'

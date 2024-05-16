@@ -90,6 +90,7 @@ class ODIR5KDataExtractor(DataExtractor):
             split_data = self.extracted_data[extraction_series]
             split_labels = self.get_labels(data_truth_series=extraction_series)
             data_splits.append(DataPackage(data=split_data, labels=split_labels, data_source_name=self.dataset_name))
+        self.current_split = data_splits
         return data_splits
 
 

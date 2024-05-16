@@ -1,6 +1,7 @@
 from data_pipeline.data_extraction import DataExtractor
 from data_pipeline import data_extraction_utils
 from data_pipeline.data_splitting_utils import split_by_instance_count, stratified_instance_split
+from data_pipeline.data_package import DataPackage
 import numpy as np
 import pandas as pd
 import pydicom
@@ -30,7 +31,7 @@ class UkbDataExtractor(DataExtractor):
         matched_data = data_extraction_utils.match_keys_labels(keys=keys_with_cfp, labels=labels_with_cfp, data_storage_path=self.database_path)
         #check if the files have pixel data
         pixel_checker = lambda x: data_extraction_utils.dicom_detect_pixels(pydicom.dcmread(x))
-        have_pixels = np.vectorize(pixel_checker)(matched_data[:,0])
+        have_pixels = np.vectorize(pixel_checker)(matched_data[:,1])
         #filter the data to only contain pixel data
         pixel_data_paths_labels = matched_data[have_pixels]
         self.extracted_data = pixel_data_paths_labels
@@ -62,8 +63,11 @@ class UkbDataExtractor(DataExtractor):
             instance_split = stratified_instance_split(instance_list=instance_list, split_ratios=split_portions, stratify_column=stratify)
         else:
             instance_split = split_by_instance_count(instance_list=instance_list, split_ratios=split_portions)
-        data_splits = [[] * len(instance_split)]
-        for split, data_split in zip(instance_split, data_splits):
+        data_splits = []
+        for split in instance_split:
             extraction_series = np.isin(self.get_instance_ids(), split)
-            data_split.extend(self.extracted_data[extraction_series])
+            data_split = self.extracted_data[extraction_series]
+            labels_split = self.get_labels()[extraction_series]
+            data_splits.append(DataPackage(data=data_split, labels=labels_split, data_source_name=self.dataset_name))
+        self.current_split = data_splits
         return data_splits

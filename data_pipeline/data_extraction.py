@@ -9,6 +9,7 @@ class DataExtractor(ABC):
     def __init__(self, database_path: str):
         self.database_path = database_path
         self.extracted_data = None
+        self.current_split = None
 
     @abstractmethod
     def extract(self):
@@ -29,6 +30,9 @@ class DataExtractor(ABC):
     @abstractmethod
     def split_extracted_data(self, split_portions, stratify):
         pass
+
+    def get_current_split(self):
+        return self.current_split
 
     def do_file_paths_exist(self):
         return all([os.path.exists(file_path) for file_path in self.get_file_paths()])

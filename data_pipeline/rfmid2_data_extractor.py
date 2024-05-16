@@ -110,6 +110,7 @@ class RFMiD2DataExtractor(DataExtractor):
         return self.extracted_data[:,0] if data_truth_series is None else self.extracted_data[data_truth_series][:,0]
       
     def split_extracted_data(self, split_portions, stratify):
+        split_data = None
         if stratify:
             #get all the labels
             labels = self.get_labels()
@@ -124,12 +125,13 @@ class RFMiD2DataExtractor(DataExtractor):
             labels_encoded = encode_multistring_labels(labels=labels, encoder=encoder)
             splits_packaged = stratified_multilabel_split(data=self.extracted_data, labels=labels_encoded, split_ratios=split_portions)
             splits_data = [split.get_data() for split in splits_packaged]
-            return [DataPackage(data=split_data, labels=split_data[:,2:], data_source_name=self.dataset_name) for split_data in splits_data]
+            split_data = [DataPackage(data=split_data, labels=split_data[:,2:], data_source_name=self.dataset_name) for split_data in splits_data]
         else:
             split_data = split_by_ratios(data=self.extracted_data, labels=labels, split_ratios=split_portions)
             for split in split_data:
                 split.set_data_source_name(self.dataset_name)
-            return split_data
+        self.current_split = split_data
+        return split_data
 
 #test
 def test_extract():
