@@ -122,7 +122,6 @@ class BenTransform(torch.nn.Module):
 def ben_transform(img_size):
     return transforms.Compose([
         BenTransform(img_size),
-        transforms.ToTensor(),
     ])
 
 def standard_transform(height : int = 224, width : int = 224, mean : list = [0.485, 0.456, 0.406], std : list = [0.229, 0.224, 0.225]):
@@ -130,7 +129,6 @@ def standard_transform(height : int = 224, width : int = 224, mean : list = [0.4
         #OuterEdgeCrop(),
         RectAngularPadTransform(),
         transforms.Resize((height, width)),
-        transforms.ToTensor(),
     ])
 
 def get_transforms(transform_name : str, transforms_config : dict):
