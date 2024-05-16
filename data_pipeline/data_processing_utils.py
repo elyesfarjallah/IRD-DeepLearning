@@ -60,8 +60,6 @@ def encode_multistring_labels(labels: np.array, encoder: OneHotEncoder):
     encoded_labels = []
     #iterate over the labels
     for label in labels:
-        #initialize the encoded label
-        encoded_label = []
         #iterate over the strings in the label
         encoded_label_sum = encode_multi_string_label(label = label, encoder = encoder)
         #append the encoded label to the encoded labels
