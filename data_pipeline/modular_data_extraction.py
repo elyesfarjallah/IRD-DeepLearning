@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
 
 from data_pipeline.odir_5k_data_extractor import ODIR5KDataExtractor
 from data_pipeline.rfmid_data_extractor import RFMiDDataExtractor
