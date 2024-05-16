@@ -34,5 +34,5 @@ class NpDataset(Dataset):
             data = self.transform(data)
         #convert to tensor
         data = np.array(data)
-        data = torch.Tensor(data).float()
+        data = torch.Tensor(data).float().permute(2, 0, 1)
         return data, label_tensor
