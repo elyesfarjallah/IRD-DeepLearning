@@ -32,7 +32,7 @@ def match_key_label(key : str, label, data_storage_path : str):
     Returns:
     - matched_data (np.array): Array of matched data, where each row is [file_path, label]."""
     file_paths = find_files(f'{data_storage_path}/{key}')
-    matched_data = [[file_path, label] for file_path in file_paths]
+    matched_data = [[key, file_path, label] for file_path in file_paths]
     return np.array(matched_data)
 
 def match_keys_labels(keys : list, labels : list, data_storage_path : str):
