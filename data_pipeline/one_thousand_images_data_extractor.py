@@ -56,8 +56,8 @@ class OneThousandImagesDataExtractor(DataExtractor):
         #set the data source name
         return_packages = []
         for split in split_data:
-            split_file_paths = split.get_data()[1]
-            split_instance_ids = split.get_data()[0]
+            split_file_paths = split.get_data()[:,1]
+            split_instance_ids = split.get_data()[:,0]
             split_labels = split.get_labels()
             return_packages.append(DataPackage(data=split_file_paths, labels=split_labels, instance_ids=split_instance_ids,
                                            data_source_name=self.dataset_name))
