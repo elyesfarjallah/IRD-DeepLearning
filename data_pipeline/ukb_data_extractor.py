@@ -66,8 +66,9 @@ class UkbDataExtractor(DataExtractor):
         data_splits = []
         for split in instance_split:
             extraction_series = np.isin(self.get_instance_ids(), split)
-            data_split = self.extracted_data[extraction_series]
+            file_paths_split = self.extracted_data[extraction_series]
             labels_split = self.get_labels()[extraction_series]
-            data_splits.append(DataPackage(data=data_split, labels=labels_split, data_source_name=self.dataset_name))
+            instrance_ids_split = self.get_instance_ids()[extraction_series]
+            data_splits.append(DataPackage(data=file_paths_split, labels=labels_split, instance_ids=instrance_ids_split, data_source_name=self.dataset_name))
         self.current_split = data_splits
         return data_splits

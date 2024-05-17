@@ -87,9 +87,11 @@ class ODIR5KDataExtractor(DataExtractor):
         data_splits = []
         for split in instance_split:
             extraction_series = np.isin(self.get_instance_ids(), split)
-            split_data = self.extracted_data[extraction_series]
+            split_file_paths = self.get_file_paths[extraction_series]
             split_labels = self.get_labels(data_truth_series=extraction_series)
-            data_splits.append(DataPackage(data=split_data, labels=split_labels, data_source_name=self.dataset_name))
+            split_instance_ids = self.get_instance_ids(data_truth_series=extraction_series)
+            data_splits.append(DataPackage(data=split_file_paths, labels=split_labels, instance_ids= split_instance_ids,
+                                           data_source_name=self.dataset_name))
         self.current_split = data_splits
         return data_splits
 

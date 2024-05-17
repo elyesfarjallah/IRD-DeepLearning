@@ -6,6 +6,7 @@ import re
 from data_pipeline.data_extraction import DataExtractor
 from data_pipeline.data_extraction_utils import insert_instance_id_dimension
 from data_pipeline.data_splitting_utils import split_by_ratios
+from data_pipeline.data_package import DataPackage
 class OneThousandImagesDataExtractor(DataExtractor):
     dataset_name = "1000images"
     regex_1000_images_disease_key = r'\d+\.(\d+\.)?(.+)'
@@ -45,17 +46,22 @@ class OneThousandImagesDataExtractor(DataExtractor):
     
     def split_extracted_data(self, split_portions, stratify):
         labels = self.get_labels()
+        data = np.concatenate((self.get_instance_ids().reshape(-1,1), self.get_file_paths().reshape(-1,1), labels), axis=1)
         if stratify:
-            split_data = split_by_ratios(data=self.extracted_data, split_ratios=split_portions, labels=labels, stratify=labels)
+            split_data = split_by_ratios(data=data, split_ratios=split_portions, labels=labels, stratify=labels)
 
         else:
-            split_data = split_by_ratios(data=self.extracted_data, labels=labels, split_ratios=split_portions)
+            split_data = split_by_ratios(data=data, labels=labels, split_ratios=split_portions)
         
         #set the data source name
+        return_packages = []
         for split in split_data:
-            split.set_data_source_name(self.dataset_name)
-        self.current_split = split_data
-        return split_data
+            split_file_paths = split.get_data()[1]
+            split_instance_ids = split.get_data()[0]
+            split_labels = split.get_labels()
+            return_packages.append(DataPackage(data=split_file_paths, labels=split_labels, instance_ids=split_instance_ids,
+                                           data_source_name=self.dataset_name))
+        return return_packages
     
 
 #test the data extraction

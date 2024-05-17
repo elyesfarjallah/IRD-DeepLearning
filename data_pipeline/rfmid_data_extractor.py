@@ -108,9 +108,9 @@ class RFMiDDataExtractor(DataExtractor):
         return self.extracted_data[:,0] if data_truth_series is None else self.extracted_data[data_truth_series][:,0]
     
     def split_extracted_data(self, split_portions, stratify):
+        data_to_split = np.concatenate((self.get_instance_ids().reshape(-1,1), self.get_file_paths().reshape(-1,1), self.get_labels()), axis=1)
+        labels = self.get_labels()
         if stratify:
-            #get all the labels
-            labels = self.get_labels()
             #unique labels
             flat_labels = labels.flatten()
             #filter out none values
@@ -120,16 +120,18 @@ class RFMiDDataExtractor(DataExtractor):
             #encode the labels
             encoder = create_one_hot_encoder(unique_labels=unique_labels)
             labels_encoded = encode_multistring_labels(labels=labels, encoder=encoder)
-            splits_packaged = stratified_multilabel_split(data=self.extracted_data, labels=labels_encoded, split_ratios=split_portions)
-            splits_data = [split.get_data() for split in splits_packaged]
-            split_data = [DataPackage(data=split_data, labels=split_data[:,2:], data_source_name=self.dataset_name) for split_data in splits_data]
+            splits_packaged = stratified_multilabel_split(data=data_to_split, labels=labels_encoded, split_ratios=split_portions)
         else:
-            split_data = split_by_ratios(data=self.extracted_data, labels=labels, split_ratios=split_portions)
-            for split in split_data:
-                split.set_data_source_name(self.dataset_name)
-        self.current_split = split_data
-        return split_data
-            
+            split_data = split_by_ratios(data=data_to_split, labels=labels, split_ratios=split_portions)
+        
+        splits_data = [split.get_data() for split in splits_packaged]
+        return_packages = []
+        for split in splits_data:
+            file_paths = split[:,1]
+            labels = split[:,2:]
+            instance_ids = split[:,0]
+            return_packages.append(DataPackage(file_paths=file_paths, labels=labels, instance_ids=instance_ids, dataset_name=self.dataset_name))
+        return return_packages            
                 
         
 
