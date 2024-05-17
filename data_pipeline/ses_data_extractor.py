@@ -45,7 +45,7 @@ class SESDataExtractor(DataExtractor):
         return self.extracted_data[:,0] if data_truth_series is None else self.extracted_data[data_truth_series][:,0]
        
     def split_extracted_data(self, split_portions, stratify):
-        data_to_split = np.concatenate(self.get_instance_ids().reshape(-1,1), self.get_file_paths().reshape(-1,1), axis=1)
+        data_to_split = np.concatenate((self.get_instance_ids().reshape(-1,1), self.get_file_paths().reshape(-1,1)), axis=1)
         labels = self.get_labels()
         split_data = split_by_ratios(data=data_to_split, labels=labels, split_ratios=split_portions, stratify=labels)
         return_packages = []
@@ -53,7 +53,7 @@ class SESDataExtractor(DataExtractor):
             file_paths = split.get_data()[:,1]
             labels = split.get_labels()
             instance_ids = split.get_data()[:,0]
-            return_packages.append(DataPackage(file_paths=file_paths, labels=labels, instance_ids=instance_ids, dataset_name=self.dataset_name))
+            return_packages.append(DataPackage(data=file_paths, labels=labels, instance_ids=instance_ids, data_source_name=self.dataset_name))
         return return_packages
     
 
