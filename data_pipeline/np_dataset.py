@@ -50,7 +50,7 @@ class NpDataset(Dataset):
         for label, n_diff in zip(unique_labels, difference):
             indices = np.where(new_labels == label)[0]
             #shuffle the indices
-            n_instances = min(n_diff, len(indices), n_max_augmentations)
+            n_instances = min(n_diff, len(indices) - 1, n_max_augmentations)
             mu, std = n_instances / 2, n_instances / 4
             n_instances_to_pick = int(np.random.normal(mu, std))
             n_instances_to_pick = max(min(n_max_augmentations, n_instances_to_pick), 0)
