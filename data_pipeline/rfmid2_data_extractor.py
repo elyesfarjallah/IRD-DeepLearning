@@ -134,7 +134,7 @@ class RFMiD2DataExtractor(DataExtractor):
             file_paths = split[:,1]
             labels = split[:,2:]
             instance_ids = split[:,0]
-            return_packages.append(DataPackage(file_paths=file_paths, labels=labels, instance_ids=instance_ids, dataset_name=self.dataset_name))
+            return_packages.append(DataPackage(data=file_paths, labels=labels, instance_ids=instance_ids, data_source_name=self.dataset_name))
         return return_packages    
 
 #test
