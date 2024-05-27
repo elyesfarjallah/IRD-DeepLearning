@@ -23,5 +23,6 @@ try.py
 *.pkl
 *.json
 *.pyc
+*.log
 wandb/
 wandb_config.json
