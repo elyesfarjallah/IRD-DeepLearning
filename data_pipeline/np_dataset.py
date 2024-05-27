@@ -37,26 +37,27 @@ class NpDataset(Dataset):
         data = torch.Tensor(data).float().permute(2, 0, 1)
         return data, label_tensor
     
-    def balance_augmentation(self, n_max_augmentations = 10):
+    def balance_augmentation(self, n_max_augmentations_per_image = 10):
         #copy the data and labels
         new_data = self.file_paths.copy()
         new_labels = self.labels.copy()
         new_augmentation_indicator = self.augmentation_indicator.copy()
         #count the number of samples for each class
-        unique_labels, counts = np.unique(new_labels, return_counts=True)
+        unique_labels, counts = np.unique(new_labels, return_counts=True, axis=0)
+        
         max_count = np.max(counts)
         difference = max_count - counts
         #for each class pick n_difference samples randomly and set the augmentation indicator to True
         for label, n_diff in zip(unique_labels, difference):
-            indices = np.where(new_labels == label)[0]
-            #shuffle the indices
-            n_instances = min(n_diff, len(indices) - 1, n_max_augmentations)
-            mu, std = n_instances / 2, n_instances / 4
-            n_instances_to_pick = int(np.random.normal(mu, std))
-            n_instances_to_pick = max(min(n_max_augmentations, n_instances_to_pick), 0)
+            indices = np.where(np.all(new_labels == label, axis=1))[0]
+            n_images = len(indices)
+            n_instances = min(n_diff, n_images * n_max_augmentations_per_image)
+            mu, std = n_instances * 3 / 4, n_instances / 8
+            n_instances_to_pick = int(np.random.normal(mu, std)) if n_instances > 0 else 0
+            n_instances_to_pick = max(n_instances_to_pick, 0)
             if n_instances_to_pick > 0:
-                random_indices = np.random.choice(indices, n_instances_to_pick, replace=False)
-                augmentation_indicators_to_add = augmentation_indicators_to_add = np.ones(n_instances_to_pick, dtype=bool)
+                random_indices = np.random.choice(indices, n_instances_to_pick, replace=True)
+                augmentation_indicators_to_add = np.ones(n_instances_to_pick, dtype=bool)
                 file_paths_to_add = new_data[random_indices]
                 labels_to_add = new_labels[random_indices]
                 new_data = np.concatenate((new_data, file_paths_to_add))
