@@ -113,9 +113,14 @@ best_model_save_folder = f'models/{model_key}/{model_id}'
 best_model_save_path = f'{best_model_save_folder}/weights.pt'
 os.makedirs(best_model_save_folder, exist_ok=True)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#load the model weights if they exist
+weihghts_path = 'models/resnet18/eaa39e95-04cc-496e-8f89-ea5fced3e345/weights.pt'
+if os.path.exists(weihghts_path):
+    model.load_state_dict(torch.load(weihghts_path))
+    print('Model loaded successfully')
 #create model configuration
 model_config = {'model_key': model_key, 'transform_type': transform_type, 'batch_size': batch_size, 'lr': lr, 'epochs': epochs,
-                'labels_to_encode': labels_to_encode.tolist(), 'model_id': model_id, 'dataset_name': dataset_name}
+                'labels_to_encode': labels_to_encode.tolist(), 'model_id': model_id, 'dataset_name': dataset_name, 'start_weights_path': weihghts_path}
 
 epochs = 30
 progress_bar = tqdm.tqdm(range(epochs))
