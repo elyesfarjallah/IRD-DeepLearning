@@ -20,11 +20,8 @@ import json
 import os
 import re
 import tqdm
-from ai_backend.evaluators.metrics.multi_label_metrics import  multi_label_f_beta, multi_label_confusion_matrix, multi_label_accuracy, multi_label_precision, multi_label_recal
 import numpy as np
-from sklearn.metrics import ConfusionMatrixDisplay, multilabel_confusion_matrix
-import matplotlib.pyplot as plt
-import pandas as pd
+
 
 
 #checkpoint 1
@@ -39,10 +36,10 @@ dicom_file_reader = lambda x: Image.fromarray(read_dicom(x)).convert('RGB')
 default_file_reader = lambda x: Image.open(x).convert('RGB')
 
 model_key = 'resnet18'
-transform_type = 'standard'
-batch_size = 128
-lr = 0.00009354747253832916
-epochs = 30
+transform_type = 'ben'
+batch_size = 16
+lr = 0.00004614948033730265
+epochs = 60
 transforms_config = models_torch.model_dict[model_key]['transforms_config']
 transform = get_transforms(transform_name = transform_type, transforms_config = transforms_config)
 labels_to_encode = np.array(["Age-related Macular Degeneration", "Best Disease", "Bietti crystalline dystrophy",
@@ -94,7 +91,7 @@ train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_
 validation_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=num_workers)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers)
 # create model
-model = models_torch.get_model(model_name=model_key, num_classes=len(labels_to_encode))
+model = models_torch.get_model(model_name=model_key, num_classes=len(labels_to_encode), pretrained=True)
 
 criterion = nn.BCEWithLogitsLoss()
 optimizer = Adam(model.parameters(), lr=lr)
@@ -114,10 +111,12 @@ best_model_save_path = f'{best_model_save_folder}/weights.pt'
 os.makedirs(best_model_save_folder, exist_ok=True)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 #load the model weights if they exist
-weihghts_path = 'models/resnet18/eaa39e95-04cc-496e-8f89-ea5fced3e345/weights.pt'
+weihghts_path = ''
 if os.path.exists(weihghts_path):
     model.load_state_dict(torch.load(weihghts_path))
     print('Model loaded successfully')
+else:
+    print('No model weights found')
 #create model configuration
 model_config = {'model_key': model_key, 'transform_type': transform_type, 'batch_size': batch_size, 'lr': lr, 'epochs': epochs,
                 'labels_to_encode': labels_to_encode.tolist(), 'model_id': model_id, 'dataset_name': dataset_name, 'start_weights_path': weihghts_path}
@@ -167,4 +166,9 @@ if not os.path.exists(best_model_save_path):
             validation_losses.append(loss_validation)
             #update the progress bar
             progress_bar.set_postfix({'Loss validation': loss_validation, 'best validation loss': min(validation_losses)})
+
+#save the validation losses in a json file
+with open(f'{best_model_save_folder}/validation_losses.json', 'w') as f:
+    json.dump(validation_losses, f)
+
         
