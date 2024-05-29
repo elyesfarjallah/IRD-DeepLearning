@@ -33,8 +33,7 @@ class NpDataset(Dataset):
         if self.transform:
             data = self.transform(data)
         #convert to tensor
-        data = np.array(data)
-        data = torch.Tensor(data).float().permute(2, 0, 1)
+        data = torch.Tensor(data).float()
         return data, label_tensor
     
     def balance_augmentation(self, n_max_augmentations_per_image = 10):

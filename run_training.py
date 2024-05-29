@@ -21,6 +21,8 @@ import os
 import re
 import tqdm
 import numpy as np
+import torch.multiprocessing as mp
+#torch.multiprocessing.set_start_method('spawn')
 
 
 
@@ -36,10 +38,10 @@ dicom_file_reader = lambda x: Image.fromarray(read_dicom(x)).convert('RGB')
 default_file_reader = lambda x: Image.open(x).convert('RGB')
 
 model_key = 'resnet18'
-transform_type = 'ben'
-batch_size = 16
-lr = 0.00004614948033730265
-epochs = 60
+transform_type = 'fundus_segment_crop'
+batch_size = 128
+lr = 0.00009354747253832916
+epochs = 30
 transforms_config = models_torch.model_dict[model_key]['transforms_config']
 transform = get_transforms(transform_name = transform_type, transforms_config = transforms_config)
 labels_to_encode = np.array(["Age-related Macular Degeneration", "Best Disease", "Bietti crystalline dystrophy",
@@ -86,10 +88,10 @@ validation_dataset = ConcatDataset(val_datasets)
 test_dataset = ConcatDataset(test_datasets)
 
 #create data loaders
-num_workers = 8
-train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers, shuffle=True)
-validation_loader = DataLoader(validation_dataset, batch_size=batch_size, num_workers=num_workers)
-test_loader = DataLoader(test_dataset, batch_size=batch_size, num_workers=num_workers)
+num_workers = 0
+train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+validation_loader = DataLoader(validation_dataset, batch_size=batch_size)
+test_loader = DataLoader(test_dataset, batch_size=batch_size)
 # create model
 model = models_torch.get_model(model_name=model_key, num_classes=len(labels_to_encode), pretrained=True)
 

@@ -6,6 +6,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
+from data_pipeline.fundus_segment_crop import FundusSegmentCrop
+
 
 class RectAngularPadTransform(torch.nn.Module):
     def __init__(self):
@@ -122,13 +124,22 @@ class BenTransform(torch.nn.Module):
 def ben_transform(img_size):
     return transforms.Compose([
         BenTransform(img_size),
+        transforms.ToTensor()
     ])
 
 def standard_transform(height : int = 224, width : int = 224, mean : list = [0.485, 0.456, 0.406], std : list = [0.229, 0.224, 0.225]):
     return transforms.Compose([
-        #OuterEdgeCrop(),
         RectAngularPadTransform(),
         transforms.Resize((height, width)),
+        transforms.ToTensor()
+    ])
+
+def fundus_segment_crop_transform(height : int = 224, width : int = 224):
+    return transforms.Compose([
+        FundusSegmentCrop(),
+        RectAngularPadTransform(),
+        transforms.Resize((height, width)),
+        transforms.ToTensor()
     ])
 
 def get_transforms(transform_name : str, transforms_config : dict):
@@ -138,6 +149,8 @@ def get_transforms(transform_name : str, transforms_config : dict):
        return standard_transform(img_size, img_size)
     elif transform_name == 'ben':
         return ben_transform(img_size)
+    elif transform_name == 'fundus_segment_crop':
+        return fundus_segment_crop_transform(img_size, img_size)
     else:
         raise ValueError(f'Transform {transform_name} not supported')
 
