@@ -82,7 +82,7 @@ def create_observer_structure(is_logging_to_wandb : bool, project_name : str, ru
     return trainer, model_logger, evaluators, wandb_observer
 
 def create_subjects_and_observers(is_logging_to_wandb : bool, project_name : str, run_name : str,
-                               run_id : str, config : dict, tags : list, watch_gradients : bool,gradients_log_freq : int,
+                               run_id : str, config : dict, tags : list, watch_gradients : bool, gradients_log_freq : int,
                                model, averaging_metrics : list, model_logger_evaluation_function : callable, model_logger_criterion : nn.Module,
                                  model_save_path : str, classwise_metrics : list = None, label_names : list = None):
     averaging_evaluators = [Evaluator(metrics=metric_group) for metric_group in averaging_metrics]
