@@ -1,4 +1,4 @@
-from convert_user_inputs import convert_user_inputs, create_subjects_and_observers
+from convert_user_inputs import create_subjects_and_observers
 
 from data_pipeline.data_loading_utils import data_packages_to_datasets, filter_data_packages_by_labels
 from data_pipeline.data_package import DataPackage
@@ -56,6 +56,7 @@ train_file_readers = [file_reader_matcher(path) for path in train_dataset_paths]
 validation_file_readers = [file_reader_matcher(path) for path in validation_dataset_paths]
 test_file_readers = [file_reader_matcher(path) for path in test_dataset_paths]
 
+
 #get the transform for the model
 transform_type = args.transform_type
 transform_config = models_torch.model_dict[args.model_key]['transforms_config']
@@ -65,6 +66,8 @@ transform = get_transforms(transform_name = transform_type, transforms_config = 
 train_datasets = data_packages_to_datasets(train_packages, train_file_readers, [transform]*len(train_packages))
 validation_datasets = data_packages_to_datasets(validation_packages, validation_file_readers, [transform]*len(validation_packages))
 test_datasets = data_packages_to_datasets(test_packages, test_file_readers, [transform]*len(test_packages))
+
+#exlude the labels that are not in the train labels from the test datasets
 
 for dataset in train_datasets:
     dataset.balance_augmentation()
