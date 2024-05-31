@@ -2,6 +2,7 @@ from data_pipeline.np_dataset import NpDataset
 from data_pipeline.data_package import DataPackage
 from PIL import Image
 from pydicom import dcmread
+import numpy as np
 
 def data_package_to_dataset(package, file_reader, transform, augmentations=None):
     dataset = NpDataset(file_paths=package.get_data(), labels=package.get_labels(),
@@ -27,10 +28,10 @@ def get_file_reader(file_reader_name : str):
 
 def filter_data_package_by_labels(data_package : DataPackage, labels_to_keep : list):
     labels = data_package.get_labels()
-    indices = [i for i, label in enumerate(labels) if label in labels_to_keep]
-    data = data_package.get_data()[indices]
-    labels = labels[indices]
-    instance_ids = data_package.instance_ids[indices]
+    contains_labels_to_keep = np.array([any(np.array_equal(label, keep_label) for keep_label in labels_to_keep) for label in labels])
+    data = data_package.get_data()[contains_labels_to_keep]
+    labels = labels[contains_labels_to_keep]
+    instance_ids = data_package.instance_ids[contains_labels_to_keep]
     data_source_name = data_package.data_source_name
     return DataPackage(data=data, labels=labels, instance_ids=instance_ids, data_source_name=data_source_name)
 
