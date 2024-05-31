@@ -57,6 +57,7 @@ class ODIR5KDataExtractor(DataExtractor):
         #get the labels
         labels = full_path_np[:,-1]
         #split the labels by the ", " separator
+        #todo split on the special character only and then remove trailing and leading whitespaces
         labels = [label.split('，') for label in labels]
         #make the label list all the same length
         max_label_length = max([len(label) for label in labels])
