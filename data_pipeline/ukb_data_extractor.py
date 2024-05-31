@@ -68,7 +68,16 @@ class UkbDataExtractor(DataExtractor):
             extraction_series = np.isin(self.get_instance_ids(), split)
             file_paths_split = self.get_file_paths()[extraction_series]
             labels_split = self.get_labels()[extraction_series]
-            instrance_ids_split = self.get_instance_ids()[extraction_series]
-            data_splits.append(DataPackage(data=file_paths_split, labels=labels_split, instance_ids=instrance_ids_split, data_source_name=self.dataset_name))
+            instance_ids_split = self.get_instance_ids()[extraction_series]
+            data_splits.append(DataPackage(data=file_paths_split, labels=labels_split, instance_ids=instance_ids_split, data_source_name=self.dataset_name))
         self.current_split = data_splits
         return data_splits
+
+def test_data_split():
+    ukb_database_path = 'databases/ird_dataset/IRD-Dataset-Complete-03-anonymized.xlsx'
+    ukb_data_path ='databases/ird_dataset/export_heyex_original_dataset_03/DICOM'
+    ukb_extractor = UkbDataExtractor(database_path=ukb_data_path, label_path=ukb_database_path)
+    ukb_extractor.extract()
+    ukb_extractor.split_extracted_data([0.7, 0.3, 0.2], stratify='Diagnose')
+
+test_data_split()
