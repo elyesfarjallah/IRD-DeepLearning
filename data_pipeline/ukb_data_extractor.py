@@ -36,6 +36,8 @@ class UkbDataExtractor(DataExtractor):
         pixel_data_paths_labels = matched_data[have_pixels]
         self.extracted_data = pixel_data_paths_labels
         self.remove_not_existing_file_paths()
+        #strip the labels from trailing and leading whitespaces
+        self.extracted_data[:,2:] = np.vectorize(lambda x: x.strip())(self.extracted_data[:,2:])
         return self.extracted_data
     
     def get_labels(self):
@@ -60,7 +62,7 @@ class UkbDataExtractor(DataExtractor):
     def split_extracted_data(self, split_portions, stratify):
         instance_list = self.get_instance_ids()
         if stratify:
-            instance_split = stratified_instance_split(instance_list=instance_list, split_ratios=split_portions, stratify_column=stratify)
+            instance_split = stratified_instance_split(instance_list=instance_list, split_ratios=split_portions, stratify_column=self.get_labels().flatten())
         else:
             instance_split = split_by_instance_count(instance_list=instance_list, split_ratios=split_portions)
         data_splits = []
@@ -79,5 +81,3 @@ def test_data_split():
     ukb_extractor = UkbDataExtractor(database_path=ukb_data_path, label_path=ukb_database_path)
     ukb_extractor.extract()
     ukb_extractor.split_extracted_data([0.7, 0.3, 0.2], stratify='Diagnose')
-
-test_data_split()

@@ -54,9 +54,9 @@ from uuid import uuid4
 # wandb.finish()
 
 
-train_dataset_paths = ['datasets/2024-05-17_12-13-57/train/ODIR-5K.json', 'datasets/2024-05-17_12-13-57/train/RFMiD2_13c5.json', 'datasets/2024-05-17_12-13-57/train/RIPS.json']
-validation_dataset_paths = ['datasets/2024-05-17_12-13-57/val/ODIR-5K.json', 'datasets/2024-05-17_12-13-57/val/RFMiD2_7290.json', 'datasets/2024-05-17_12-13-57/val/RIPS.json']
-test_dataset_paths = ['datasets/2024-05-17_12-13-57/test/UKB.json']
+train_dataset_paths = ['datasets/2024-06-04_15-15-51/train/ODIR-5K.json', 'datasets/2024-06-04_15-15-51/train/RFMiD2_3e3c.json', 'datasets/2024-06-04_15-15-51/train/RFMiD2_7d4d.json']
+validation_dataset_paths = ['datasets/2024-06-04_15-15-51/val/ODIR-5K.json', 'datasets/2024-06-04_15-15-51/val/RFMiD2_accf.json', 'datasets/2024-06-04_15-15-51/val/RFMiD2_fc02.json']
+test_dataset_paths = ['datasets/2024-06-04_15-15-51/test/UKB.json']
 
 # Load data packages
 train_packages = [DataPackage.load(path) for path in train_dataset_paths]

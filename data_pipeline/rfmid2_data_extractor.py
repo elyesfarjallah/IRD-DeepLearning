@@ -124,7 +124,6 @@ class RFMiD2DataExtractor(DataExtractor):
             encoder = create_one_hot_encoder(unique_labels=unique_labels)
             labels_encoded = encode_multistring_labels(labels=labels, encoder=encoder)
             splits_packaged = stratified_multilabel_split(data=self.extracted_data, labels=labels_encoded, split_ratios=split_portions)
-            splits_packaged = stratified_multilabel_split(data=self.extracted_data, labels=labels_encoded, split_ratios=split_portions)
         else:
             splits_data = split_by_ratios(data=data_to_split, labels=labels, split_ratios=split_portions)
         

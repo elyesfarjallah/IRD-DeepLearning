@@ -20,7 +20,9 @@ def assign_instance_counts(file_counts, ideal_partition_counts):
         partition_index = np.argmax(diff)
         #check if there are empty partitions
         if min(dynamic_counts) == 0:
+            print('Dynamic counts:', dynamic_counts)
             partition_index = np.argmin(dynamic_counts)
+            print('Empty partition found:', partition_index)
         
         #find the index of the patient with the largest count
         count_index = np.argmax(file_counts)
@@ -33,6 +35,7 @@ def assign_instance_counts(file_counts, ideal_partition_counts):
         #remove the count from the list
         file_counts.pop(count_index)
     #groupby count
+    print(dynamic_counts)
     grouped_count_df = df_assigned.groupby('count').sum().reset_index()
     return grouped_count_df.values
 
@@ -66,6 +69,7 @@ def split_by_instance_count(instance_list, split_ratios):
         instances = count_instance_df[count_instance_df['count'] == count]['instance'].values
         #assign the instances to the partitions
         n_assignments = i[1:]
+        print(len(instances) - sum(n_assignments))
         #randomly pick n instances
         for i, n in enumerate(n_assignments):
             chosen_instances = np.random.choice(instances, n, replace=False)

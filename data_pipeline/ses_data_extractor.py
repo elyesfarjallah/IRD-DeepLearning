@@ -9,7 +9,7 @@ import os
 
 class SESDataExtractor(DataExtractor):
     dataset_name = "SES"
-    abbreviations_dict = {'Best': 'Best Disease', 'CD-CRD':'Cone Dystrophie or Cone-rod Dystrophie',
+    abbreviations_dict = {'Best': 'Best Disease', 'CD-CRD':'Cone Dystrophy or Cone-rod Dystrophy',
                           'LCA': 'Leber congenital amaurosis', 'RP': 'Retinitis Pigmentosa', 'STGD': 'Stargardt Disease'}
     
     def __init__(self, database_path: str):

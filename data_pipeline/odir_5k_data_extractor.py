@@ -56,9 +56,11 @@ class ODIR5KDataExtractor(DataExtractor):
         full_path_np = full_path_df.values
         #get the labels
         labels = full_path_np[:,-1]
-        #split the labels by the ", " separator
-        #todo split on the special character only and then remove trailing and leading whitespaces
-        labels = [label.split('，') for label in labels]
+        #split the labels by the "," separator
+        labels = [label.replace('，', ',') for label in labels]
+        labels = [label.split(',') for label in labels]
+        #remove the leading and trailing whitespaces
+        labels = [[sub_label.strip() for sub_label in label] for label in labels]
         #make the label list all the same length
         max_label_length = max([len(label) for label in labels])
         labels = [label + [None]*(max_label_length-len(label)) for label in labels]

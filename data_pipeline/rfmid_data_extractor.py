@@ -122,7 +122,7 @@ class RFMiDDataExtractor(DataExtractor):
             labels_encoded = encode_multistring_labels(labels=labels, encoder=encoder)
             splits_packaged = stratified_multilabel_split(data=data_to_split, labels=labels_encoded, split_ratios=split_portions)
         else:
-            split_data = split_by_ratios(data=data_to_split, labels=labels, split_ratios=split_portions)
+            splits_packaged = split_by_ratios(data=data_to_split, labels=labels, split_ratios=split_portions)
         
         splits_data = [split.get_data() for split in splits_packaged]
         return_packages = []
