@@ -10,6 +10,7 @@ from ai_backend.utils import calc_best_thresholds
 import argparse
 from torch.utils.data import ConcatDataset, DataLoader
 import json
+import re
 import os
 import torch
 import wandb
@@ -17,6 +18,7 @@ import numpy as np
 from uuid import uuid4
 from pydicom import dcmread
 from PIL import Image
+from torchvision import transforms
 read_dicom = lambda x: dcmread(x).pixel_array
 dicom_file_reader = lambda x: Image.fromarray(read_dicom(x)).convert('RGB')
 default_file_reader = lambda x: Image.open(x).convert('RGB')
@@ -37,6 +39,7 @@ def main(raw_args = None):
     argparser.add_argument('--shuffle', type=bool, help='Shuffle data', default=True)
     argparser.add_argument('--epochs', type=int, help='Number of epochs', default=30)
     argparser.add_argument('--wandb_run_id', type=str, help='Wandb run id', default=str(uuid4()))
+    argparser.add_argument('--wandb_run_tags', type=str, help='Tags of the wandb run', nargs='+', default=[])
 
 
     args = argparser.parse_args(raw_args)
@@ -63,14 +66,19 @@ def main(raw_args = None):
     transform = get_transforms(transform_name = transform_type, transforms_config = transform_config)
 
     #create the datasets
-    train_datasets = data_packages_to_datasets(train_packages, train_file_readers, [transform]*len(train_packages))
+    augmentation_transform = transforms.Compose([
+                transforms.RandomRotation(10),
+                transforms.RandomHorizontalFlip(p=0.6),
+                transforms.RandomVerticalFlip(p=0.5)
+            ])
+    train_datasets = data_packages_to_datasets(train_packages, train_file_readers, [transform]*len(train_packages), [augmentation_transform]*len(train_packages))
     validation_datasets = data_packages_to_datasets(validation_packages, validation_file_readers, [transform]*len(validation_packages))
     
 
     #exlude the labels that are not in the train labels from the test datasets
-
-    for dataset in train_datasets:
-        dataset.balance_augmentation()
+    if args.augmentation:
+        for dataset in train_datasets:
+            dataset.balance_augmentation()
     #concatenate the datasets
     train_dataset = ConcatDataset(train_datasets)
     validation_dataset = ConcatDataset(validation_datasets)
@@ -85,7 +93,12 @@ def main(raw_args = None):
 
     #create the model, dataloaders
     model = models_torch.get_model(model_name=args.model_key, num_classes=len(label_names), pretrained=args.pretrained)
-
+    #add dropout forward hooks to the model
+    for name, module in model.named_modules():
+        re_pattern = re.compile(r'^layer\d+$')
+        if re_pattern.match(name) is not None:
+            module.register_forward_hook(lambda module, input,
+                                        output: torch.nn.functional.dropout2d(output, p=0.2, training=module.training))
     num_workers = 111
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=args.shuffle, num_workers=num_workers)
     validation_loader = DataLoader(validation_dataset, batch_size=512, shuffle=False, num_workers=num_workers)
@@ -117,7 +130,7 @@ def main(raw_args = None):
     averaging_metrics = [averaging_metrics, [model_logger_criterrion]]
     #create observers
     trainer, model_logger, averaging_evaluators, classwise_evaluators, wandb_observer = create_subjects_and_observers(is_logging_to_wandb = True, project_name = args.wandb_project_name, run_name = args.wandb_run_id,
-                                run_id = args.wandb_run_id, config = run_config, tags=[], watch_gradients = False, gradients_log_freq = 0,
+                                run_id = args.wandb_run_id, config = run_config, tags = args.wandb_run_tags, watch_gradients = False, gradients_log_freq = 0,
                                 model = model, averaging_metrics = averaging_metrics, model_logger_evaluation_function = is_min, model_logger_criterion = model_logger_criterrion,
                                     model_save_path = model_save_path, classwise_metrics = classwise_metrics, label_names = label_names)
 

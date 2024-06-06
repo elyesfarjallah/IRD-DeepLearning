@@ -1,0 +1,22 @@
+nohup: ignoring input
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_5m_224 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_5m_224. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_11m_224 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_11m_224. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_21m_224 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_21m_224. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_21m_384 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_21m_384. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_21m_512 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_21m_512. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+wandb: Currently logged in as: elyes-farjallah (inherited-retinal-disease). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.6
+wandb: Run data is saved locally in /home/efarjall/IRD-DeepLearning/wandb/run-20240606_173232-32b6d01b-e961-4957-8014-f877bbd10756
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run 32b6d01b-e961-4957-8014-f877bbd10756
+wandb: ⭐️ View project at https://wandb.ai/inherited-retinal-disease/zero_shot_performance_augmented_train_data
+wandb: 🚀 View run at https://wandb.ai/inherited-retinal-disease/zero_shot_performance_augmented_train_data/runs/32b6d01b-e961-4957-8014-f877bbd10756
+['ODIR-5K.json', 'RFMiD.json', 'RFMiD2.json', '1000images.json', 'RIPS.json', 'SES.json', 'UKB.json']
+Epochs:   0%|          | 0/50 [00:00<?, ?it/s]Epochs:   2%|▏         | 1/50 [00:25<20:52, 25.57s/it]Epochs:   4%|▍         | 2/50 [00:53<21:45, 27.19s/it]Epochs:   6%|▌         | 3/50 [01:22<21:58, 28.06s/it]Epochs:   8%|▊         | 4/50 [01:51<21:36, 28.19s/it]Epochs:  10%|█         | 5/50 [02:21<21:35, 28.79s/it]Epochs:  12%|█▏        | 6/50 [02:49<20:55, 28.54s/it]Epochs:  14%|█▍        | 7/50 [03:17<20:28, 28.57s/it]Epochs:  16%|█▌        | 8/50 [03:44<19:35, 27.99s/it]Epochs:  18%|█▊        | 9/50 [04:12<19:07, 27.99s/it]
