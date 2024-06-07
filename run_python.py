@@ -40,7 +40,7 @@ for _ in range(n_times):
         model_key = 'resnet18'
         transform_type = 'standard'
         wandb_run_tags = '_'.join(train_data).replace('.json', '')
-        arguments = ['--model_key', model_key, '--transform_type', transform_type, '--train_dataset_paths', *train_paths, '--validation_dataset_paths', *val_paths, '--wandb_project_name', 'zero_shot_performance_augmented_train_data',
+        arguments = ['--model_key', model_key, '--transform_type', transform_type, '--train_dataset_paths', *train_paths, '--validation_dataset_paths', *val_paths, '--wandb_project_name', 'zero_shot_performance_augmented_train_data_02',
                     '--dataset_config_path', dataset_config_path, '--lr', '0.00009354747253832916', '--batch_size', '128',
                     '--pretrained', 'True', '--augmentation', 'True', '--shuffle', 'True', '--epochs', '50', '--wandb_run_id', str(uuid4()), '--wandb_run_tags', wandb_run_tags]
 
@@ -59,6 +59,8 @@ for _ in range(n_times):
             test_packages = filter_data_packages_by_labels(test_packages, unique_train_labels)
             test_datasets = data_packages_to_datasets(test_packages, test_file_readers, [transform]*len(test_packages))
             test_dataset = ConcatDataset(test_datasets)
+            if len(test_dataset) == 0:
+                continue
             num_workers = 96
             device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
             test_loader = DataLoader(test_dataset, batch_size=512, shuffle=False, num_workers=num_workers)
