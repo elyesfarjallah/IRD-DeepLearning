@@ -25,4 +25,5 @@ try.py
 *.pyc
 output.log
 wandb/
+*.pdf
 wandb_config.json
