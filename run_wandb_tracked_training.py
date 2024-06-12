@@ -99,7 +99,7 @@ def main(raw_args = None):
         if re_pattern.match(name) is not None:
             module.register_forward_hook(lambda module, input,
                                         output: torch.nn.functional.dropout2d(output, p=0.2, training=module.training))
-    num_workers = 111
+    num_workers = 4
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=args.shuffle, num_workers=num_workers)
     validation_loader = DataLoader(validation_dataset, batch_size=512, shuffle=False, num_workers=num_workers)
     
