@@ -1,0 +1,651 @@
+nohup: ignoring input
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_5m_224 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_5m_224. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_11m_224 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_11m_224. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_21m_224 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_21m_224. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_21m_384 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_21m_384. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+/home/efarjall/miniconda3/envs/ird/lib/python3.11/site-packages/mobile_sam/modeling/tiny_vit_sam.py:656: UserWarning: Overwriting tiny_vit_21m_512 in registry with mobile_sam.modeling.tiny_vit_sam.tiny_vit_21m_512. This is because the name being registered conflicts with an existing name. Please check if this is not expected.
+  return register_model(fn_wrapper)
+wandb: Currently logged in as: elyes-farjallah (inherited-retinal-disease). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.6
+wandb: Run data is saved locally in /home/efarjall/IRD-DeepLearning/wandb/run-20240620_162516-test_RFMiD_RFMiD2_ODIR-5K_RIPS_1000images_dataset_expansion
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run test_RFMiD_RFMiD2_ODIR-5K_RIPS_1000images_dataset_expansion
+wandb: ⭐️ View project at https://wandb.ai/inherited-retinal-disease/dataset_expansion
+wandb: 🚀 View run at https://wandb.ai/inherited-retinal-disease/dataset_expansion/runs/test_RFMiD_RFMiD2_ODIR-5K_RIPS_1000images_dataset_expansion
+Epochs:   0%|          | 0/2 [00:00<?, ?it/s]Epochs:  50%|█████     | 1/2 [00:26<00:26, 26.65s/it]Epochs: 100%|██████████| 2/2 [00:55<00:00, 27.93s/it]Epochs: 100%|██████████| 2/2 [00:55<00:00, 27.73s/it]
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:188: RuntimeWarning: invalid value encountered in divide
+  f_beta = (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:149: RuntimeWarning: invalid value encountered in divide
+  precision = true_positives / (true_positives + false_positives)
+/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py:115: RuntimeWarning: invalid value encountered in divide
+  recall = true_positives / (true_positives + false_negatives)
+Traceback (most recent call last):
+  File "/home/efarjall/IRD-DeepLearning/run_python.py", line 45, in <module>
+    trainer, model, unique_train_labels = main(arguments)
+                                          ^^^^^^^^^^^^^^^
+  File "/home/efarjall/IRD-DeepLearning/run_wandb_tracked_training.py", line 181, in main
+    trainer.notify()
+  File "/home/efarjall/IRD-DeepLearning/ai_backend/observer_pattern.py", line 26, in notify
+    observer.update(self)
+  File "/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/evaluator.py", line 20, in update
+    self.notify()
+  File "/home/efarjall/IRD-DeepLearning/ai_backend/observer_pattern.py", line 26, in notify
+    observer.update(self)
+  File "/home/efarjall/IRD-DeepLearning/ai_backend/loggers/wandb_logger.py", line 23, in update
+    results = subject.get_results()
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/evaluator.py", line 42, in get_results
+    metric_value = metric(y_true, y_pred)
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py", line 52, in __call__
+    return self.metric(y_true = y_true, y_pred = y_pred, averaging_type = self.averaging_type, threshold = self.thresholds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/efarjall/IRD-DeepLearning/ai_backend/evaluators/metrics/multi_label_metrics.py", line 191, in multi_label_f_beta
+    f_beta[nans_total] = np.nan
+    ~~~~~~^^^^^^^^^^^^
+TypeError: 'numpy.float64' object does not support item assignment
+wandb: - 0.020 MB of 0.020 MB uploadedwandb: \ 0.020 MB of 0.090 MB uploadedwandb: | 0.024 MB of 0.090 MB uploadedwandb: / 0.090 MB of 0.090 MB uploadedwandb: 
+wandb: Run history:
+wandb: epoch ▁█
+wandb: 
+wandb: Run summary:
+wandb: epoch 1
+wandb: 
+wandb: 🚀 View run test_RFMiD_RFMiD2_ODIR-5K_RIPS_1000images_dataset_expansion at: https://wandb.ai/inherited-retinal-disease/dataset_expansion/runs/test_RFMiD_RFMiD2_ODIR-5K_RIPS_1000images_dataset_expansion
+wandb: ⭐️ View project at: https://wandb.ai/inherited-retinal-disease/dataset_expansion
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240620_162516-test_RFMiD_RFMiD2_ODIR-5K_RIPS_1000images_dataset_expansion/logs

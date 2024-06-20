@@ -19,7 +19,6 @@ file_readers = {'dicom' : dicom_file_reader, 'default' : default_file_reader}
 dataset_path = 'datasets/2024-06-05_16-22-01'
 train_data = os.listdir(f'{dataset_path}/train')
 val_data = os.listdir(f'{dataset_path}/val')
-print(train_data)
 #create the power set of the train datasets
 
 train_paths = [f'{dataset_path}/train/{path}' for path in train_data]
@@ -46,7 +45,7 @@ test_datasets = data_packages_to_datasets(test_packages, test_file_readers, [tra
 test_dataset = ConcatDataset(test_datasets)
 num_workers = 4
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-test_loader = DataLoader(test_dataset, batch_size=512, shuffle=False, num_workers=num_workers)
+test_loader = DataLoader(test_dataset, batch_size=2, shuffle=False, num_workers=num_workers)
 #do the same for the test data
 trainer.clear_results()
 test_data = trainer.test(model=model, test_loader=test_loader, device=device)

@@ -41,13 +41,31 @@ def filter_data_package_by_labels(data_package : DataPackage, labels_to_keep : l
 def filter_data_packages_by_labels(data_packages : list, labels_to_keep : list):
     return [filter_data_package_by_labels(data_package, labels_to_keep) for data_package in data_packages]
 
+
+def zero_out_package_labels(data_package, labels_to_keep):
+    labels = data_package.get_labels()
+    keep_label_sum = np.sum(labels_to_keep, axis=0)
+    keep_label_bool = keep_label_sum > 0
+    
+    # Create a mask to zero out labels not in labels_to_keep
+    labels[:, ~keep_label_bool] = 0
+    
+    data = data_package.get_data()
+    instance_ids = data_package.instance_ids
+    data_source_name = data_package.data_source_name
+    
+    return DataPackage(data=data, labels=labels, instance_ids=instance_ids, data_source_name=data_source_name)
+
+def zero_out_packages_labels(data_packages, labels_to_keep):
+    return [zero_out_package_labels(data_package, labels_to_keep) for data_package in data_packages]
+
 # #test filter_data_package_by_labels
-# labels_to_keep = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-# labels = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1], [0, 0, 0]])
+# labels_to_keep = np.array([[0, 0, 0], [0, 1, 0], [0, 0, 0]])
+# labels = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
 # data = np.random.randn(8, 3, 224, 224)
 # instance_ids = np.arange(8)
 # data_source_name = 'test'
 # data_package = DataPackage(data=data, labels=labels, instance_ids=instance_ids, data_source_name=data_source_name)
-# filtered_data_package = filter_data_package_by_labels(data_package, labels_to_keep)
+# filtered_data_package = zero_out_package_labels(data_package, labels_to_keep)
 # unique_labels = np.unique(filtered_data_package.get_labels(), axis=0)
 # print(unique_labels)
